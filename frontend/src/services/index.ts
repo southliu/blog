@@ -5,7 +5,7 @@ import request from '@/utils/request'
  * @param {Object} data
  */
 function find_banner(data: any) {
-  return request.get(`/website/banner`, { params: data })
+  return request.get(`/banner`, { params: data })
 }
 
 /**
@@ -13,7 +13,7 @@ function find_banner(data: any) {
  * @param {Object} data
  */
 function find_page(data: any) {
-  return request.get(`/website/page`, { params: data })
+  return request.get(`/home/page`, { params: data })
 }
 
 export default {
