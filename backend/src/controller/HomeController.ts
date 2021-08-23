@@ -39,7 +39,7 @@ export class HomeController {
         describe: '日落，指太阳徐徐降下至西方的地平线下的过程，是夕阳时分，而确实的定义为日面完全没入地平线下的时间。日落，指太阳徐徐降下至西方的地平线下的过程，是夕阳时分，而确实的定义为日面完全没入地平线下的时间。用各种修辞手法对事物进行形象化的阐述。包括的修辞手法有比喻、拟人、夸张、双关、排比等，可以描述人，也可以描述物，通过描述可以让人或物形象更生动具体，给人明了的感。'
       }
     ]
-    const result = handleResponse<IHomeResult[]>(500, data)
+    const result = handleResponse<IHomeResult[]>(200, data)
     res.json(result)
   }
 }
