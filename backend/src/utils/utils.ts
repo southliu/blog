@@ -4,7 +4,7 @@ type IResult<T> = {
   data: T
 }
 
-export const getResponseData = <T>(code: number, data: T, message?: string): IResult<T> => {
+export const handleResponse = <T>(code: number, data: T, message?: string): IResult<T> => {
   return {
     code,
     data,

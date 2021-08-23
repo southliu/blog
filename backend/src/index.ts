@@ -1,7 +1,7 @@
 import express from 'express'
 import router from './router'
-import website from './routers/website'
-import './controller/BannerController'
+import './controller/CommonController'
+import './controller/HomeController'
 const app = express()
 
 // app.all("*", function(request, response, next){
@@ -17,7 +17,6 @@ const app = express()
 // });
 
 app.use(router)
-app.use('/website', website);
 
 app.listen(5000, '0.0.0.0', () => {
   console.log('server success!');
