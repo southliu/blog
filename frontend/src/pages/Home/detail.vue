@@ -19,7 +19,6 @@ export default defineComponent({
   setup() {
     useTitle()
     const route = useRoute()
-    console.log('route:', route)
 
     onMounted(() => {
       console.log('onMounted')

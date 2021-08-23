@@ -5,7 +5,6 @@ const useTitle = () => {
   const router = useRoute()
 
   onMounted(() => {
-    console.log('router:', router)
     document.title = (router.meta.title as string) || 'SOUTH博客'
   })
 

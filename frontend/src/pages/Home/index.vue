@@ -36,10 +36,10 @@ export default defineComponent({
 
     // 获取数据
     const handleGetPage = () => {
-      API.find_page({}).then(response => {
+      API.find_page({}).then((response: any) => {
         console.log('response:', response)
-        if (response.data.code === 200) {
-          lists.value = response.data.data
+        if (response.code === 200) {
+          lists.value = response.data
         }
       })
     }
