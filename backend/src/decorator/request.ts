@@ -17,3 +17,4 @@ function getRequestDecorator(type: string) {
 }
 
 export const get = getRequestDecorator(Methods.get)
+export const post = getRequestDecorator(Methods.post)
