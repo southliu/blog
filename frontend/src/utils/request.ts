@@ -1,10 +1,17 @@
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
+
+export type IResponse<T> = {
+  code: number;
+  message?: string;
+  data: T
+}
 
 /**
  * TODO process.env
  */
-const prefixUrl = process.env.VUE_APP_BASE_API || 'http://0.0.0.0:5000'
-console.log('process:', process)
+const prefixUrl = (import.meta.env.VITE_BASE_API as string)
+console.log('prefixUrl:', prefixUrl)
+console.log('env:', import.meta.env)
 
 const service = axios.create({
   baseURL: prefixUrl,
@@ -12,7 +19,7 @@ const service = axios.create({
 })
 
 service.interceptors.response.use(
-  response => {
+  (response) => {
     const res = response.data
 
     if (res && res.code !== 200) {

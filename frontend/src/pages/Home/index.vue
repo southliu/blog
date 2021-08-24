@@ -18,6 +18,8 @@ import { IBlogCard } from '@/utils/types'
 import Card from './components/Card.vue'
 import Pagination from '@/components/Pagination.vue'
 import API from '@/services'
+import { IResponse } from '@/utils/request'
+import { AxiosResponse } from 'axios'
 
 export default defineComponent({
   components: {
@@ -36,10 +38,10 @@ export default defineComponent({
 
     // 获取数据
     const handleGetPage = () => {
-      API.find_page({}).then((response: any) => {
+      API.find_page({}).then((response: AxiosResponse<IResponse<IBlogCard[]>>) => {
         console.log('response:', response)
-        if (response.code === 200) {
-          lists.value = response.data
+        if (response.data.code === 200) {
+          lists.value = response.data.data
         }
       })
     }
