@@ -4,8 +4,16 @@ import request from '@/utils/request'
  * 查询-banner
  * @param {Object} data
  */
-function find_banner(data: any) {
-  return request.get(`/banner`, { params: data })
+interface IBanner {
+  type: string
+}
+
+function find_banner(data?: IBanner) {
+  return request({
+    method: 'get',
+    url: '/banner',
+    params: data
+  })
 }
 
 /**
@@ -13,7 +21,11 @@ function find_banner(data: any) {
  * @param {Object} data
  */
 function find_page(data: any) {
-  return request.get(`/home/page`, { params: data })
+  return request({
+    method: 'get',
+    url: '/home/page',
+    params: data
+  })
 }
 
 export default {

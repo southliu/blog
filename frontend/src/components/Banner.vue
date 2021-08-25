@@ -8,12 +8,27 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import image from '@/assets/images/banner.jpg'
+import { defineComponent, onMounted, ref } from 'vue'
+// import image from '@/assets/images/banner.jpg'
+import API from '@/services'
+import { IResponseData } from '@/types'
 
 export default defineComponent({
   name: 'Banner',
   setup() {
+    const image = ref('')
+
+    // 获取banner
+    const handleGetBanner = () => {
+      API.find_banner().then((response: IResponseData<string>) => {
+        image.value = response.data
+      })
+    }
+
+    onMounted(() => {
+      handleGetBanner()
+    })
+
     return {
       image
     }
