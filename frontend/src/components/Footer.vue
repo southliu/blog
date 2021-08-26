@@ -21,8 +21,7 @@
         </div>
         <hr class="line" width="80%" color="#ccc" size="3" />
         <div class="row">
-          <span class="col-6 copyright">©2021 1275093225@qq.com</span>
-          <span class="col-6">感谢收看</span>
+          <span class="copyright">©2021 1275093225@qq.com</span>
         </div>
       </div>
     </footer>

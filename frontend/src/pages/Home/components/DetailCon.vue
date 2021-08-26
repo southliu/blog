@@ -23,7 +23,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
-import { IBlogCard } from '@/utils/types'
+import { IBlogCard } from '@/types'
 
 export default defineComponent({
   props: {

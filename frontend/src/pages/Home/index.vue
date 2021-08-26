@@ -14,7 +14,7 @@
 import { defineComponent, onMounted, reactive, ref } from 'vue'
 import { useTitle } from '@/hooks'
 import { useRouter } from 'vue-router'
-import { IBlogCard } from '@/utils/types'
+import { IBlogCard } from '@/types'
 import Card from './components/Card.vue'
 import Pagination from '@/components/Pagination.vue'
 import API from '@/services'

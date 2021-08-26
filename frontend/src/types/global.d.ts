@@ -6,3 +6,14 @@ export type IResponseData<T> = {
   message?: string;
   data: T
 }
+
+/**
+ * @describe 博客卡片数据
+ */
+export type IBlogCard = {
+  id: string | number;
+  title: string;
+  image?: string;
+  date: string;
+  describe: string;
+}

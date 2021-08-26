@@ -8,7 +8,7 @@
 import { defineComponent, onMounted, reactive } from 'vue'
 import { useTitle } from '@/hooks'
 import { useRoute } from 'vue-router'
-import { IBlogCard } from '@/utils/types'
+import { IBlogCard } from '@/types'
 import DetailCon from './components/DetailCon.vue'
 
 export default defineComponent({

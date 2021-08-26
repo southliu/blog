@@ -1,5 +1,6 @@
 import express from 'express'
 import router from './router'
+import connection from './utils/connection'
 import './controller/CommonController'
 import './controller/HomeController'
 const app = express()
@@ -15,6 +16,8 @@ app.all("*", function(request, response, next){
   else
     next();
 });
+
+connection.connect()
 
 app.use(router)
 
