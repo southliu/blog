@@ -27,9 +27,13 @@ export default defineComponent({
   },
   setup() {
     useTitle()
-
     const router = useRouter()
     const lists = ref<IBlogCard[]>([])
+    const pageOptions = reactive({
+      page: 1,
+      pageSize: 10,
+      total: 0
+    })
 
     onMounted(() => {
       handleGetPage()
@@ -37,17 +41,13 @@ export default defineComponent({
 
     // 获取数据
     const handleGetPage = () => {
-      API.find_page({}).then((response: IResponseData<IBlogCard[]>) => {
+      const { page, pageSize } = pageOptions
+      API.find_page({ page, pageSize }).then((response: IResponseData<IBlogCard[]>) => {
         if (response.code === 200) {
           lists.value = response.data
         }
       })
     }
-    const pageOptions = reactive({
-      page: 1,
-      pageSize: 10,
-      total: 40
-    })
 
     // 点击博客
     const handleClick = (id: string) => {

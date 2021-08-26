@@ -6,7 +6,7 @@
       <span class="time_value">{{ data.date }}</span>
     </p>
     <img :src="data.image" :alt="data.title" class="image" style="width: 100%" />
-    <p class="sub_title">{{ data.sub_title }}</p>
+    <p class="describe">{{ data.describe }}</p>
 
     <div class="footer">
       <div class="footer_item">

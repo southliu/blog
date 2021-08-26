@@ -5,7 +5,6 @@ import router from '../router'
 
 export function controller(root: string) {
   return function(target: new (...arg: any[]) => any) {
-    console.log('target:', target)
     for (let key in target.prototype) {
       const path: string = Reflect.getMetadata('path', target.prototype, key)
       const method: Methods = Reflect.getMetadata('method', target.prototype, key)

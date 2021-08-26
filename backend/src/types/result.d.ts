@@ -5,4 +5,5 @@ export interface IHomeResult {
   image?: string;
   date: string;
   describe: string;
+  total?: number;
 } 

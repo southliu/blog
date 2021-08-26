@@ -8,17 +8,19 @@ import connection from '../utils/connection'
 export class HomeController {
   @get('/page')
   page(req: Request, res: Response) {
-    // const { page, pageSize } = req.query
-    // console.log('page:', page)
-    // console.log('pageSize:', pageSize)
+    const { page, pageSize } = req.query
+    console.log('page:', page)
+    console.log('pageSize:', pageSize)
 
-    const sql = 'SELECT * FROM home'
+    const sql = `SELECT * FROM home;`
 
-    connection.query(sql, function (err,result) {
-      if(err){
-        res.json(handleResponse<string>(500, err.message))
+    connection.query(sql, function (err, result) {
+      if (err) {
+        console.log('错误信息:', err.message)
+        return res.json(handleResponse<string>(500, err.message))
       }
       console.log(result);  //数据库查询结果返回到result中
+      
       res.json(handleResponse<IHomeResult[]>(200, result))
     })
   }
