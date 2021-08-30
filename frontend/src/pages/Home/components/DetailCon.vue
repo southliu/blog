@@ -5,8 +5,7 @@
       <span class="iconfont">&#xe610;</span>
       <span class="time_value">{{ data.date }}</span>
     </p>
-    <img :src="data.image" :alt="data.title" class="image" style="width: 100%" />
-    <p class="describe">{{ data.describe }}</p>
+    <p class="content">{{ data.content }}</p>
 
     <div class="footer">
       <div class="footer_item" :class="{'disable': !data.prev}" @click="handleNext(data.prev)">
@@ -24,26 +23,16 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
 import { IHomeDetailResult } from '@/types'
-import { useRouter } from 'vue-router'
 
 export default defineComponent({
   props: {
     data: {
       type: Object as PropType<IHomeDetailResult>,
       required: true
-    }
-  },
-  setup() {
-    const router = useRouter()
-
-    // 处理上下篇数据
-    const handleNext = (id: string) => {
-      router.push(`/blog/detail/${id}`)
-    }
-
-    return {
-      handleNext,
-      router
+    },
+    handleNext: {
+      type: Function,
+      required: true
     }
   }
 })
