@@ -8,9 +8,11 @@ export interface IHomeResult {
 } 
 
 // 文章详情数据
-export interface IHomeDetail {
+export interface IHomeDetailResult {
   id: string | number;
   title: string;
   date: string;
   content: string;
+  prev?: string | number;
+  next?: string | number;
 }

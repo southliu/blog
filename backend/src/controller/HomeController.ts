@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { controller, get } from "../decorator";
-import { IHomeDetail, IHomeResult } from "../types";
+import { IHomeDetailResult, IHomeResult } from "../types";
 import { handleError, handleFilterDate, handleResponse } from "../utils/utils";
 import connection from '../utils/connection'
 import { IPageDate } from '../types/global';
@@ -35,12 +35,17 @@ export class DetailController {
     const { id } = req.query
     if (!id) return res.json(handleResponse<string>(500, '请输入id!'))
 
-    const sql = `SELECT id, title, date, content FROM home WHERE id=${id};`
+    const sql = `SELECT id, title, date, content FROM home WHERE id=${id};
+      SELECT id FROM home WHERE id < ${id} order by id desc limit 1;
+      SELECT id FROM home WHERE id > ${id} order by id limit 1;`
     
     connection.query(sql, (err, result) => {
       if (err) return handleError(err, res)
-      const response = result.filter((item: IHomeDetail) => item.date = handleFilterDate(item.date))
-      res.json(handleResponse<string>(200, response))
+      const data = result[0].filter((item: IHomeDetailResult) => item.date = handleFilterDate(item.date))
+      const prev = result[1].length > 0 ? result[1][0].id : undefined
+      const next = result[2].length > 0 ? result[2][0].id : undefined
+      const response: IHomeDetailResult = {...data[0], prev, next}
+      res.json(handleResponse<IHomeDetailResult>(200, response))
     })
   }
 }
