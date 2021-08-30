@@ -31,7 +31,7 @@ export default defineComponent({
     const lists = ref<IHomeResult[]>([])
     const pageOptions = reactive({
       page: 1,
-      pageSize: 10,
+      pageSize: 2,
       total: 0
     })
 
@@ -58,7 +58,8 @@ export default defineComponent({
 
     // 处理分页
     const handleChangePagination = (page: number) => {
-      console.log('handleChangePagination:', page)
+      pageOptions.page = page
+      handleGetPage()
     }
   
     return {

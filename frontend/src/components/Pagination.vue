@@ -1,8 +1,13 @@
 <template>
   <nav aria-label="Page navigation example" class="pagination_box">
     <ul class="pagination">
-      <li class="page-item" :class="{'disabled': currentPage === 1}">
-        <a class="page-link" href="#" aria-label="Previous">
+      <li class="page-item">
+        <a
+          class="page-link"
+          href="#"
+          aria-label="Previous"
+          :class="{'disabled': currentPage === 1}"
+        >
           <span aria-hidden="true">&laquo;</span>
         </a>
       </li>
@@ -11,12 +16,17 @@
         :key="item"
         class="page-item"
         :class="{'active': item === currentPage}"
-        @click="handleClick(item)"
+        @click="handleClick(item)"  
       >
         <a class="page-link" href="#">{{ item }}</a>
       </li>
-      <li class="page-item" :class="{'disabled': currentPage === pages.length}">
-        <a class="page-link" href="#" aria-label="Next">
+      <li class="page-item">
+        <a
+          class="page-link"
+          href="#"
+          aria-label="Next"
+          :class="{'disabled': currentPage === pages.length}"
+        >
           <span aria-hidden="true">&raquo;</span>
         </a>
       </li>
@@ -49,9 +59,11 @@ export default defineComponent({
   emits: ['onChange'],
   setup(props, context) {
     const { page, pageSize, total } = props
-    const pageNum = total ? Math.floor(total / pageSize) : 0
+    const pageNum = total ? Math.ceil(total / pageSize) : 0
     const pages = pageNum > 0 ? Array(pageNum).fill(true).map((item, index) => index + 1) : []
     const currentPage = ref(page || 1)
+
+    console.log('pageNum:', pageNum)
 
     // 点击分页
     const handleClick = (page: number) => {
