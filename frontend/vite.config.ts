@@ -11,5 +11,9 @@ export default defineConfig({
   plugins: [vue()],
   define: {
     'process.env': {}
+  },
+  server: {
+    port: 7000,
+    open: true
   }
 })

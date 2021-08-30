@@ -23,12 +23,12 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
 import { hanldeFilterDate } from '@/utils/utils'
-import { IBlogCard } from '@/types'
+import { IHomeResult } from '@/types'
 
 export default defineComponent({
   props: {
     data: {
-      type: Array as PropType<IBlogCard[]>,
+      type: Array as PropType<IHomeResult[]>,
       required: true
     },
     handleClick: {

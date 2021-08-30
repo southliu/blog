@@ -1,2 +1,2 @@
 export * from './global'
-export * from './response'
+export * from './result'

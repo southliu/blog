@@ -1,6 +1,4 @@
-/**
- * @describe 首页数据
- */
+// 首页数据
 export interface IHomeResult {
   id: string | number;
   title: string;
@@ -9,14 +7,12 @@ export interface IHomeResult {
   describe: string;
 } 
 
-
-/**
- * @describe 博客卡片数据
- */
- export type IBlogCard = {
+// 文章详情数据
+export interface IHomeDetailResult {
   id: string | number;
   title: string;
-  image?: string;
   date: string;
-  describe: string;
+  content: string;
+  prev?: string | number;
+  next?: string | number;
 }

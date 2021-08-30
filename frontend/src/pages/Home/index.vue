@@ -14,12 +14,11 @@
 import { defineComponent, onMounted, reactive, ref } from 'vue'
 import { useTitle } from '@/hooks'
 import { useRouter } from 'vue-router'
-import { IBlogCard } from '@/types'
+import { IHomeResult } from '@/types'
 import Card from './components/Card.vue'
 import Pagination from '@/components/Pagination.vue'
 import API from '@/services'
 import { IPageResponseData } from '@/types'
-
 
 export default defineComponent({
   components: {
@@ -29,7 +28,7 @@ export default defineComponent({
   setup() {
     useTitle()
     const router = useRouter()
-    const lists = ref<IBlogCard[]>([])
+    const lists = ref<IHomeResult[]>([])
     const pageOptions = reactive({
       page: 1,
       pageSize: 10,
@@ -43,7 +42,7 @@ export default defineComponent({
     // 获取数据
     const handleGetPage = () => {
       const { page, pageSize } = pageOptions
-      API.find_page({ page, pageSize }).then((response: IPageResponseData<IBlogCard[]>) => {
+      API.find_page({ page, pageSize }).then((response: IPageResponseData<IHomeResult[]>) => {
         if (response.code === 200) {
           const { items, total } = response.data
           lists.value = items || []

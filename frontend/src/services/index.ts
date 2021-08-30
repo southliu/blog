@@ -1,3 +1,4 @@
+import { IPageDate } from '@/types'
 import request from '@/utils/request'
 
 /**
@@ -20,7 +21,7 @@ function find_banner(data?: IBanner) {
  * 查询-根据条件分页查询
  * @param {Object} data
  */
-function find_page(data: any) {
+function find_page(data: IPageDate) {
   return request({
     method: 'get',
     url: '/home/page',
@@ -28,7 +29,20 @@ function find_page(data: any) {
   })
 }
 
+/**
+ * 查询-根据id获取详情
+ */
+function find_detail(id: string) {
+  return request({
+    method: 'get',
+    url: '/home/detail',
+    params: { id }
+  })
+}
+
+
 export default {
   find_banner,
-  find_page
+  find_page,
+  find_detail
 }

@@ -9,11 +9,11 @@
     <p class="describe">{{ data.describe }}</p>
 
     <div class="footer">
-      <div class="footer_item">
+      <div class="footer_item" :class="{'disable': !data.prev}" @click="handleNext(data.prev)">
         <i class="iconfont">&#xe600;</i>
         <span>上一篇</span>
       </div>
-      <div class="footer_item">
+      <div class="footer_item" :class="{'disable': !data.next}" @click="handleNext(data.next)">
         <span>下一篇</span>
         <i class="iconfont right">&#xe600;</i>
       </div>
@@ -23,16 +23,28 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
-import { IBlogCard } from '@/types'
+import { IHomeDetailResult } from '@/types'
+import { useRouter } from 'vue-router'
 
 export default defineComponent({
   props: {
     data: {
-      type: Object as PropType<IBlogCard>,
+      type: Object as PropType<IHomeDetailResult>,
       required: true
     }
   },
   setup() {
+    const router = useRouter()
+
+    // 处理上下篇数据
+    const handleNext = (id: string) => {
+      router.push(`/blog/detail/${id}`)
+    }
+
+    return {
+      handleNext,
+      router
+    }
   }
 })
 </script>
@@ -59,6 +71,10 @@ export default defineComponent({
   }
   .footer_item span {
     margin: 0 5px;
+  }
+  .disable {
+    color: #999 !important;
+    pointer-events: none;
   }
   .right {
     display: inline-block;
