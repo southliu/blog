@@ -5,5 +5,12 @@ export interface IHomeResult {
   image?: string;
   date: string;
   describe: string;
-  total?: number;
 } 
+
+// 文章详情数据
+export interface IHomeDetail {
+  id: string | number;
+  title: string;
+  date: string;
+  content: string;
+}
