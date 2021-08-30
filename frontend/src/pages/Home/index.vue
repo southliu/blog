@@ -18,7 +18,8 @@ import { IBlogCard } from '@/types'
 import Card from './components/Card.vue'
 import Pagination from '@/components/Pagination.vue'
 import API from '@/services'
-import { IResponseData } from '@/types'
+import { IPageResponseData } from '@/types'
+
 
 export default defineComponent({
   components: {
@@ -42,9 +43,11 @@ export default defineComponent({
     // 获取数据
     const handleGetPage = () => {
       const { page, pageSize } = pageOptions
-      API.find_page({ page, pageSize }).then((response: IResponseData<IBlogCard[]>) => {
+      API.find_page({ page, pageSize }).then((response: IPageResponseData<IBlogCard[]>) => {
         if (response.code === 200) {
-          lists.value = response.data
+          const { items, total } = response.data
+          lists.value = items || []
+          pageOptions.total = total || 0
         }
       })
     }

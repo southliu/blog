@@ -1,19 +1,25 @@
 /**
- * @describe api响应
+ * @describe api公共数据
  */
-export type IResponseData<T> = {
+interface IPublicResponse {
   code: number;
   message?: string;
+}
+
+
+/**
+ * @describe api响应
+ */
+export interface IResponseData<T> extends IPublicResponse {
   data: T
 }
 
 /**
- * @describe 博客卡片数据
+ * @describe 分页api响应
  */
-export type IBlogCard = {
-  id: string | number;
-  title: string;
-  image?: string;
-  date: string;
-  describe: string;
+export interface IPageResponseData<T> extends IPublicResponse  {
+  data: {
+    items: T;
+    total: number;
+  }
 }

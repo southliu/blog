@@ -8,3 +8,15 @@ export interface IHomeResult {
   date: string;
   describe: string;
 } 
+
+
+/**
+ * @describe 博客卡片数据
+ */
+ export type IBlogCard = {
+  id: string | number;
+  title: string;
+  image?: string;
+  date: string;
+  describe: string;
+}
