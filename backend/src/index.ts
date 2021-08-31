@@ -3,6 +3,7 @@ import router from './router'
 import connection from './utils/connection'
 import './controller/CommonController'
 import './controller/HomeController'
+import './controller/CaseController'
 const app = express()
 
 app.all("*", function(request, response, next){

@@ -25,11 +25,7 @@ export class HomeController {
       res.json(handleResponse<IHomeResult[]>(200, response))
     })
   }
-}
 
-
-@controller('/home')
-export class DetailController {
   @get('/detail')
   detail(req: Request, res: Response) {
     const { id } = req.query

@@ -16,3 +16,10 @@ export interface IHomeDetailResult {
   prev?: string | number;
   next?: string | number;
 }
+
+// 项目数据
+export interface ICaseResult {
+  id: string | number;
+  title: string;
+  date: string;
+}
