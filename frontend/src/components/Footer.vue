@@ -77,4 +77,10 @@ export default defineComponent({
   .row:last-child {
     font-size: .5rem;
   }
+
+  @media screen and (max-width: 968px) {
+    .nav {
+      display: none;
+    }
+  }
 </style>
