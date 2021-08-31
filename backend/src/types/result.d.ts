@@ -18,8 +18,14 @@ export interface IHomeDetailResult {
 }
 
 // 项目数据
-export interface ICaseResult {
+export interface ICaseResultItem {
   id: string | number;
   title: string;
+  year: string;
   date: string;
+}
+
+export interface ICaseResult {
+  year: string | number;
+  items: ICaseResultItem[]
 }
