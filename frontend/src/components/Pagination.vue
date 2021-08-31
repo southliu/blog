@@ -7,6 +7,7 @@
           href="#"
           aria-label="Previous"
           :class="{'disabled': currentPage === 1}"
+          @click="handleClick(currentPage - 1)"
         >
           <span aria-hidden="true">&laquo;</span>
         </a>
@@ -26,6 +27,7 @@
           href="#"
           aria-label="Next"
           :class="{'disabled': currentPage === pages.length}"
+          @click="handleClick(currentPage + 1)"
         >
           <span aria-hidden="true">&raquo;</span>
         </a>
@@ -35,7 +37,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, onUpdated, ref } from 'vue'
 
 export default defineComponent({
   props: {
@@ -58,12 +60,16 @@ export default defineComponent({
   },
   emits: ['onChange'],
   setup(props, context) {
-    const { page, pageSize, total } = props
-    const pageNum = total ? Math.ceil(total / pageSize) : 0
-    const pages = pageNum > 0 ? Array(pageNum).fill(true).map((item, index) => index + 1) : []
-    const currentPage = ref(page || 1)
+    const currentPage = ref(1)
+    const pages = ref<number[]>([])
 
-    console.log('pageNum:', pageNum)
+    onUpdated(() => {
+      const { page, pageSize, total } = props
+      const pageNum = total ? Math.ceil(total / pageSize) : 0
+      const pageArrs = pageNum > 0 ? Array(pageNum).fill(true).map((item, index) => index + 1) : []
+      currentPage.value = page || 1
+      pages.value = pageArrs
+    })
 
     // 点击分页
     const handleClick = (page: number) => {
@@ -85,5 +91,9 @@ export default defineComponent({
     display: flex;
     justify-content: center;
     margin: 10px auto;
+  }
+  .disabled {
+    color: #999 !important;
+    pointer-events: none;
   }
 </style>
