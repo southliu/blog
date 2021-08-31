@@ -40,9 +40,19 @@ function find_detail(id: string) {
   })
 }
 
+/**
+ * 查询-项目数据
+ */
+ function find_case() {
+  return request({
+    method: 'get',
+    url: '/case/list',
+  })
+}
 
 export default {
   find_banner,
   find_page,
-  find_detail
+  find_detail,
+  find_case
 }
