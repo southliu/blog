@@ -26,6 +26,6 @@ export interface ICaseResultItem {
 }
 
 export interface ICaseResult {
-  year: string | number;
+  year: string;
   items: ICaseResultItem[]
 }

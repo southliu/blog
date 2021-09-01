@@ -20,13 +20,15 @@ export class CaseController {
         const year = date.substring(0, 4)
         item.year = year
         item.date = date.substring(5, 10)
-        responseObj[year] ? responseObj[year].push(item) : responseObj[year] = [item]
+        responseObj.hasOwnProperty(year) ? responseObj[year].push(item) : responseObj[year] = [item]
       })
 
-      console.log('responseObj', responseObj)
       for (let key in responseObj) {
         response.push({ year: key, items: responseObj[key] })
       }
+      
+      // 年份倒叙
+      response.sort((a, b) => parseInt(b.year) - parseInt(a.year))
       res.json(handleResponse<ICaseResult[]>(200, response))
     })
   }
