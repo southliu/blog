@@ -1,11 +1,16 @@
 <template>
-  <div class="container">
+  <div class="container case">
     <div v-for="item in list" :key="item.id" class="item">
       <h1 class="year">{{ item.year }}</h1>
-      <div v-for="child in item.items" :key="child.id" class="date_item">
+      <router-link
+        v-for="child in item.items"
+        :key="child.id"
+        :to="child.url"
+        class="date_item"
+      >
         <div class="title">{{ child.title }}</div>
         <div class="date">{{ child.date }}</div>
-      </div>
+      </router-link>
     </div>
   </div>
 </template>
@@ -42,9 +47,13 @@ export default defineComponent({
 </script>
 
 <style scoped>
+  .case {
+    padding: 20px 10px;
+  }
   .date_item {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 10px;
   }
 </style>
