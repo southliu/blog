@@ -49,6 +49,7 @@ export default defineComponent({
 <style scoped>
   .container {
     min-height: calc(100vh - 417px);
+    max-width: 800px;
   }
   .case {
     padding: 20px 10px;
@@ -57,6 +58,6 @@ export default defineComponent({
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px;
+    padding: 15px 30px;
   }
 </style>

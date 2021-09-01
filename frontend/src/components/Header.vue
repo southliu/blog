@@ -1,5 +1,6 @@
 <template>
   <teleport to="#header">
+    <div class="space"></div>
     <div class="header">
       <router-link to="/" class="logo">
         SOUTH.
@@ -44,11 +45,20 @@ export default defineComponent({
 </script>
 
 <style lang="less" scoped>
+  .space {
+    height: 40px;
+  }
   .header {
+    width: 100%;
     height: 40px;
     display: flex;
     align-items: center;
     justify-content: space-around;
+    background-color: #fff;
+    box-shadow: 0 0 10px 0px rgba(0, 0, 0, .1);
+    position: fixed;
+    top: 0;
+    z-index: 9999;
   }
   .logo {
     font-size: 1.2rem;

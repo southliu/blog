@@ -21,7 +21,7 @@
         </div>
         <hr class="line" width="80%" color="#ccc" size="3" />
         <div class="row">
-          <span class="copyright">©2021 1275093225@qq.com</span>
+          <span class="copyright">©2021 Wechat: lnf1275093225</span>
         </div>
       </div>
     </footer>
