@@ -73,6 +73,9 @@ export default defineComponent({
 </script>
 
 <style lang="less" scoped>
+  .container {
+    min-height: calc(100vh - 428px);
+  }
   .blog {
     text-align: left;
   }
