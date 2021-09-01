@@ -18,3 +18,20 @@ export const hanldeFilterDate = (date: string, type: 'date' | 'time') => {
       return ''
   }
 }
+
+type IPopularizeType = 'qq' | 'wechat' | 'github'
+// 推广
+export const handlePopularize = (type: IPopularizeType) => {
+  switch (type) {
+    case 'github':
+      window.open('https://github.com/SouthLiu')
+      break
+
+    case 'wechat':
+      break
+
+    case 'qq':
+      window.open('http://wpa.qq.com/msgrd?v=3&uin=1275093225&site=qq&menu=yes')
+      break
+  }
+}

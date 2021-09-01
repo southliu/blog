@@ -14,9 +14,9 @@
             </nav>
           </span>
           <span class="col-4">
-            <i class="iconfont">&#xe6b2;</i>
-            <i class="iconfont">&#xe63c;</i>
-            <i class="iconfont">&#xe8c6;</i>
+            <i class="iconfont" @click="handlePopularize('qq')">&#xe6b2;</i>
+            <i class="iconfont" @click="handlePopularize('wechat')">&#xe63c;</i>
+            <i class="iconfont" @click="handlePopularize('github')">&#xe8c6;</i>
           </span>
         </div>
         <hr class="line" width="80%" color="#ccc" size="3" />
@@ -31,12 +31,14 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { navs } from './Header.vue';
+import { handlePopularize } from '@/utils/utils'
 
 export default defineComponent({
   name: 'Footer',
   setup() {
     return {
-      navs
+      navs,
+      handlePopularize
     }
   }
 })

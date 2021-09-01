@@ -47,6 +47,9 @@ export default defineComponent({
 </script>
 
 <style scoped>
+  .container {
+    min-height: calc(100vh - 417px);
+  }
   .case {
     padding: 20px 10px;
   }
