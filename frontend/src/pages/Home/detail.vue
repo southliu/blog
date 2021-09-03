@@ -1,11 +1,9 @@
 <template>
-  <div class="container">
-    <DetailCon
-      :data="detailData"
-      :loading="loading"
-      :handleNext="handleNext"
-    />
-  </div>
+  <DetailCon
+    :data="detailData"
+    :loading="loading"
+    :handleNext="handleNext"
+  />
 </template>
 
 <script lang="ts">

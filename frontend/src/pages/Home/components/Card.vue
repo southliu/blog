@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!loading">
+  <template v-if="!loading">
     <div
       v-for="(item, index) in data"
       :key="index"
@@ -18,14 +18,13 @@
       <div class="card-body">
         <p class="title">{{ item.title }}</p>
         <p class="time">
-        <span class="iconfont">&#xe610;</span>
-        <span class="time_value">{{ hanldeFilterDate(item.date, 'time') }}</span>
-      </p>
-      <p class="describe">{{ item.describe }}</p>
+          <span class="iconfont">&#xe610;</span>
+          <span class="time_value">{{ hanldeFilterDate(item.date, 'time') }}</span>
+        </p>
+        <p class="describe">{{ item.describe }}</p>
+      </div>
     </div>
-  </div>
-
-  </div>
+  </template>
 
   <div v-if="loading" class="card placeholder-glow" aria-hidden="true">
     <div class="card-img-top"></div>

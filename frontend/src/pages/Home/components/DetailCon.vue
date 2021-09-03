@@ -1,13 +1,13 @@
 <template>
   <div class="container">
-    <div v-if="!loading">
+    <template v-if="!loading">
       <h1 class="title">{{ data.title }}</h1>
       <p class="date">
         <span class="iconfont">&#xe610;</span>
         <span class="time_value">{{ data.date }}</span>
       </p>
       <p class="content">{{ data.content }}</p>
-    </div>
+    </template>
 
     <div v-if="loading" class="placeholder-glow">
       <h3 class="title placeholder col-6"></h3>
