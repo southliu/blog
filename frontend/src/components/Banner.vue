@@ -1,7 +1,8 @@
 <template>
   <teleport to="#banner">
-    <div class="banner_box">
-      <img :src="image" class="banner" />
+    <div class="banner_box placeholder-glow">
+      <img v-if="image" :src="image" class="banner" />
+      <span v-if="loading" class="banner_box placeholder col-12"></span>
       <!-- <span class="banner_title">欢迎来到我的博客!</span> -->
     </div>
   </teleport>
@@ -17,11 +18,15 @@ export default defineComponent({
   name: 'Banner',
   setup() {
     const image = ref('')
+    const loading = ref(false)
 
     // 获取banner
     const handleGetBanner = () => {
+      loading.value = true
       API.find_banner().then((response: IResponseData<string>) => {
         image.value = response.data
+      }).finally(() => {
+        loading.value = false
       })
     }
 
@@ -30,7 +35,8 @@ export default defineComponent({
     })
 
     return {
-      image
+      image,
+      loading
     }
   }
 })

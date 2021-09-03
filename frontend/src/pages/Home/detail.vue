@@ -1,6 +1,10 @@
 <template>
   <div class="container">
-    <DetailCon :data="detailData" :handleNext="handleNext" />
+    <DetailCon
+      :data="detailData"
+      :loading="loading"
+      :handleNext="handleNext"
+    />
   </div>
 </template>
 
@@ -21,6 +25,7 @@ export default defineComponent({
     useTitle()
     const route = useRoute()
     const router = useRouter()
+    const loading = ref(false)
     const detailData = ref<IHomeDetailResult>({
       id: '',
       title: '',
@@ -37,11 +42,14 @@ export default defineComponent({
   
     // 获取详情
     const handleGetDetail = (id: string) => {
+      loading.value = true
       API.find_detail(id).then((response: IResponseData<IHomeDetailResult>) => {
         if (response.code === 200) {
           const { data } = response
           detailData.value = data
         }
+      }).finally(() => {
+        loading.value = false
       })
     }
 
@@ -53,6 +61,7 @@ export default defineComponent({
 
     return {
       detailData,
+      loading,
       handleNext
     }
   }

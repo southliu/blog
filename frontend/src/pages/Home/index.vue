@@ -1,7 +1,12 @@
 <template>
   <div class="blog container">
-    <Card :data="lists" :handleClick="handleClick" />
+    <Card
+      :data="lists"
+      :loading="loading"
+      :handleClick="handleClick"
+    />
     <Pagination
+      v-if="pageOptions.total > 0"
       :page="pageOptions.page"
       :total="pageOptions.total"
       :pageSize="pageOptions.pageSize"
@@ -29,6 +34,7 @@ export default defineComponent({
     useTitle()
     const router = useRouter()
     const lists = ref<IHomeResult[]>([])
+    const loading = ref(false)
     const pageOptions = reactive({
       page: 1,
       pageSize: 2,
@@ -42,12 +48,15 @@ export default defineComponent({
     // 获取数据
     const handleGetPage = () => {
       const { page, pageSize } = pageOptions
+      loading.value = true
       API.find_page({ page, pageSize }).then((response: IPageResponseData<IHomeResult[]>) => {
         if (response.code === 200) {
           const { items, total } = response.data
           lists.value = items || []
           pageOptions.total = total || 0
         }
+      }).finally(() => {
+        loading.value = false
       })
     }
 
@@ -65,6 +74,7 @@ export default defineComponent({
     return {
       lists,
       pageOptions,
+      loading,
       handleClick,
       handleChangePagination
     }

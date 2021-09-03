@@ -1,21 +1,48 @@
 <template>
-  <div v-for="(item, index) in data" :key="index" class="card" @click="handleClick(item.id)">
-    <div class="img_box">
-      <div class="date">{{ hanldeFilterDate(item.date, 'date') }}</div>
-      <img
-        v-if="item.image"
-        :src="item.image"
-        :alt="item.title"
-        class="card-img-top image"
-      />
-    </div>
-    <div class="card-body">
-      <p class="title">{{ item.title }}</p>
-      <p class="time">
+  <div v-if="!loading">
+    <div
+      v-for="(item, index) in data"
+      :key="index"
+      class="card"
+      @click="handleClick(item.id)"
+    >
+      <div class="img_box">
+        <div class="date">{{ hanldeFilterDate(item.date, 'date') }}</div>
+        <img
+          v-if="item.image"
+          :src="item.image"
+          :alt="item.title"
+          class="card-img-top image"
+        />
+      </div>
+      <div class="card-body">
+        <p class="title">{{ item.title }}</p>
+        <p class="time">
         <span class="iconfont">&#xe610;</span>
         <span class="time_value">{{ hanldeFilterDate(item.date, 'time') }}</span>
       </p>
       <p class="describe">{{ item.describe }}</p>
+    </div>
+  </div>
+
+  </div>
+
+  <div v-if="loading" class="card placeholder-glow" aria-hidden="true">
+    <div class="card-img-top"></div>
+    <div class="card-body">
+      <h5 class="card-title placeholder-glow">
+        <span class="placeholder col-2"></span>
+      </h5>
+      <h4 class="card-title placeholder-glow">
+        <span class="placeholder col-6"></span>
+      </h4>
+      <p class="card-text placeholder-glow">
+        <span class="placeholder col-7"></span>
+        <span class="placeholder col-4"></span>
+        <span class="placeholder col-4"></span>
+        <span class="placeholder col-6"></span>
+        <span class="placeholder col-8"></span>
+      </p>
     </div>
   </div>
 </template>
@@ -29,6 +56,10 @@ export default defineComponent({
   props: {
     data: {
       type: Array as PropType<IHomeResult[]>,
+      required: true
+    },
+    loading: {
+      type: Boolean,
       required: true
     },
     handleClick: {

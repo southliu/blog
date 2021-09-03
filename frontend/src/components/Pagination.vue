@@ -37,7 +37,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onUpdated, ref } from 'vue'
+import { defineComponent, onMounted, onUpdated, ref } from 'vue'
 
 export default defineComponent({
   props: {
@@ -63,13 +63,18 @@ export default defineComponent({
     const currentPage = ref(1)
     const pages = ref<number[]>([])
 
-    onUpdated(() => {
+    onMounted(() => {
+      handlePages()
+    })
+
+    // 处理页数
+    const handlePages = () => {
       const { page, pageSize, total } = props
       const pageNum = total ? Math.ceil(total / pageSize) : 0
       const pageArrs = pageNum > 0 ? Array(pageNum).fill(true).map((item, index) => index + 1) : []
       currentPage.value = page || 1
       pages.value = pageArrs
-    })
+    }
 
     // 点击分页
     const handleClick = (page: number) => {

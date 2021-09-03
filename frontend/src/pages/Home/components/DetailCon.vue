@@ -1,18 +1,30 @@
 <template>
   <div class="container">
-    <h1 class="title">{{ data.title }}</h1>
-    <p class="date">
-      <span class="iconfont">&#xe610;</span>
-      <span class="time_value">{{ data.date }}</span>
-    </p>
-    <p class="content">{{ data.content }}</p>
+    <div v-if="!loading">
+      <h1 class="title">{{ data.title }}</h1>
+      <p class="date">
+        <span class="iconfont">&#xe610;</span>
+        <span class="time_value">{{ data.date }}</span>
+      </p>
+      <p class="content">{{ data.content }}</p>
+    </div>
+
+    <div v-if="loading" class="placeholder-glow">
+      <h3 class="title placeholder col-6"></h3>
+      <div>
+        <p class="placeholder col-2"></p>
+      </div>
+      <p class="content placeholder col-12"></p>
+      <p class="content placeholder col-12"></p>
+      <p class="content placeholder col-6"></p>
+    </div>
 
     <div class="footer">
-      <div class="footer_item" :class="{'disable': !data.prev}" @click="handleNext(data.prev)">
+      <div class="footer_item" :class="{'disable': !data.prev || loading}" @click="handleNext(data.prev)">
         <i class="iconfont">&#xe600;</i>
         <span>上一篇</span>
       </div>
-      <div class="footer_item" :class="{'disable': !data.next}" @click="handleNext(data.next)">
+      <div class="footer_item" :class="{'disable': !data.next || loading}" @click="handleNext(data.next)">
         <span>下一篇</span>
         <i class="iconfont right">&#xe600;</i>
       </div>
@@ -28,6 +40,10 @@ export default defineComponent({
   props: {
     data: {
       type: Object as PropType<IHomeDetailResult>,
+      required: true
+    },
+    loading: {
+      type: Boolean,
       required: true
     },
     handleNext: {
