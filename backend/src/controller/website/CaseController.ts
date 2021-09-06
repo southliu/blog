@@ -1,12 +1,12 @@
 import { Request, Response } from "express";
-import { get, controller } from "@decorator";
-import { ICaseResultItem, ICaseResult } from "@types";
-import connection from "@utils/connection";
-import { handleError, handleFilterDate, handleResponse } from "@utils/utils";
+import { get, controller } from "../../decorator";
+import { ICaseResultItem, ICaseResult } from "../../types";
+import connection from "../../utils/connection";
+import { handleError, handleFilterDate, handleResponse } from "../../utils/utils";
 
-@controller('/case')
+@controller('/website')
 export class CaseController {
-  @get('/list')
+  @get('/case/list')
   case(req: Request, res: Response) {
     const sql = `SELECT * FROM cases`
     

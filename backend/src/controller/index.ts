@@ -1,2 +1,2 @@
-export * from './website/CommonController'
-export * from './website/HomeController'
+export * from './CommonController'
+export * from './HomeController'
