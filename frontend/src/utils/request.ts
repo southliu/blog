@@ -3,7 +3,7 @@ import axios, { AxiosRequestConfig } from 'axios'
 const prefixUrl = (import.meta.env.VITE_BASE_API as string)
 
 const service = axios.create({
-  baseURL: prefixUrl,
+  baseURL: `${prefixUrl}/website`,
   timeout: 30000
 })
 
