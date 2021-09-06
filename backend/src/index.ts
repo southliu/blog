@@ -1,9 +1,10 @@
 import express from 'express'
+import moduleAlias from 'module-alias'
 import router from './router'
-import connection from './utils/connection'
-import './controller/CommonController'
-import './controller/HomeController'
-import './controller/CaseController'
+import connection from '@utils/connection'
+import '@controller/website/CommonController'
+import '@controller/website/HomeController'
+import '@controller/website/website/CaseController'
 const app = express()
 
 app.all("*", function(request, response, next){
@@ -17,6 +18,15 @@ app.all("*", function(request, response, next){
   else
     next();
 });
+
+// 设置别名
+moduleAlias.addAliases({
+  '@': __dirname + 'src',
+  '@controller': __dirname + 'src/controller',
+  '@decorator': __dirname + 'src/decorator',
+  '@types': __dirname + 'src/types',
+  '@utils': __dirname + 'src/utils'
+})
 
 connection.connect()
 

@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { get } from "../decorator";
-import { controller } from "../decorator/controller";
-import { handleResponse } from "../utils/utils";
+import { get } from "@decorator";
+import { controller } from "@decorator/controller";
+import { handleResponse } from "@utils/utils";
 
 @controller('/')
 export class BannerController {

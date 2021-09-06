@@ -1,9 +1,8 @@
 import { Request, Response } from "express";
-import { controller, get } from "../decorator";
-import { IHomeDetailResult, IHomeResult } from "../types";
-import { handleError, handleFilterDate, handleResponse } from "../utils/utils";
-import connection from '../utils/connection'
-import { IPageDate } from '../types/global';
+import { controller, get } from "@decorator";
+import { IHomeDetailResult, IHomeResult, IPageDate } from "@types";
+import { handleError, handleFilterDate, handleResponse } from "@utils/utils";
+import connection from '@utils/connection'
 
 @controller('/home')
 export class HomeController {

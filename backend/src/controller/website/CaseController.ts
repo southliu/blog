@@ -1,9 +1,8 @@
 import { Request, Response } from "express";
-import { get } from "../decorator";
-import { controller } from "../decorator/controller";
-import { ICaseResultItem, ICaseResult } from "../types";
-import connection from "../utils/connection";
-import { handleError, handleFilterDate, handleResponse } from "../utils/utils";
+import { get, controller } from "@decorator";
+import { ICaseResultItem, ICaseResult } from "@types";
+import connection from "@utils/connection";
+import { handleError, handleFilterDate, handleResponse } from "@utils/utils";
 
 @controller('/case')
 export class CaseController {
