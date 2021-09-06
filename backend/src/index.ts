@@ -1,9 +1,9 @@
 import express from 'express'
 import router from './router'
 import connection from './utils/connection'
-import './controller/CommonController'
-import './controller/HomeController'
-import './controller/CaseController'
+import './controller/website/CommonController'
+import './controller/website/HomeController'
+import './controller/website/website/CaseController'
 const app = express()
 
 app.all("*", function(request, response, next){

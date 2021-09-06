@@ -1,9 +1,8 @@
 import { Request, Response } from "express";
-import { get } from "../decorator";
-import { controller } from "../decorator/controller";
-import { handleResponse } from "../utils/utils";
+import { get, controller } from "../../decorator";
+import { handleResponse } from "../../utils/utils";
 
-@controller('/')
+@controller('/website')
 export class BannerController {
   @get('/banner')
   banner(req: Request, res: Response) {

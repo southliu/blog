@@ -1,2 +1,2 @@
-export * from './result'
+export * from './website/result'
 export * from './global'
