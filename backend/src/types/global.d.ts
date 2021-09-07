@@ -6,4 +6,4 @@ export interface IPageDate extends Request {
     page: number;
     pageSize: number;
   }
-} 
+}
