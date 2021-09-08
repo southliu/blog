@@ -1,11 +1,10 @@
-import { Request, Response } from "express";
-import { IPageDate, IPublicResult, IUserResult } from "../../types";
+import { NextFunction, Request, Response } from "express";
+import { IPageDate, IUserResult, MESSAGE_SUCCESS } from "../../types";
 import connection from "../../utils/connection";
 import { handleError, handleResponse } from "../../utils/utils";
-import { get, post } from '../../decorator/request';
-import { controller } from '../../decorator/controller';
+import { get, post, patch, del, controller, use } from '../../decorator';
 
-interface ICreate extends Request {
+interface ICreateRequest extends Request {
   body: {
     name: string;
     username: string;
@@ -13,15 +12,40 @@ interface ICreate extends Request {
     roleIds: string[] | number[]
   }
 }
+
+interface IIdBodyRequest extends Request {
+  body: { id: string; }
+}
+
+// 检查新增传值
+const checkCreateParams = (req: Request, res: Response, next: NextFunction): void | Response => {
+  let { name, username, password, roleIds } = req.body
+
+  if (!name) return res.json(handleResponse<string>(500, '请输入名称!'))
+  if (!username) return res.json(handleResponse<string>(500, '请输入用户名!'))
+  if (!password) return res.json(handleResponse<string>(500, '请输入密码!'))
+  if (!roleIds) return res.json(handleResponse<string>(500, '请选择角色!'))
+  next();
+};
+
+// 检查ID
+const checkId = (req: Request, res: Response, next: NextFunction): void | Response => {
+  let { id } = req.body
+
+  if (!id) return res.json(handleResponse<string>(500, '请输入ID!'))
+  next();
+};
+
 @controller('/user')
 export class UserController {
+  // 分页
   @get('/page')
   page(req: IPageDate, res: Response) {
     let { page, pageSize } = req.query
-    page = page || 1
-    pageSize = pageSize || 20
+    const currentPage = parseInt(page) || 1
+    const currentPageSize = parseInt(pageSize) || 20
 
-    const sql = `SELECT * FROM users LIMIT ${(page - 1) * pageSize}, ${pageSize};
+    const sql = `SELECT * FROM users LIMIT ${(currentPage - 1) * currentPageSize}, ${currentPageSize};
     SELECT COUNT(id) as total FROM users;`
 
     connection.query(sql, (err, result) => {
@@ -32,24 +56,48 @@ export class UserController {
     })
   }
 
+  // 新增
   @post('/create')
-  create(req: ICreate, res: Response) {
-    console.log('req.body:', req.body)
+  @use(checkCreateParams)
+  create(req: ICreateRequest, res: Response) {
     let { name, username, password, roleIds } = req.body
 
-    if (!name) return res.json(handleResponse<string>(500, '请输入名称'))
-    if (!username) return res.json(handleResponse<string>(500, '请输入用户名'))
-    if (!password) return res.json(handleResponse<string>(500, '请输入密码'))
-    if (!roleIds) return res.json(handleResponse<string>(500, '请选择角色'))
+    const sql = `INSERT INTO users(name, username, password, role_ids) VALUES(?, ?, ?, ?);`
 
-    const sql = `SELECT * FROM users
-      (name, username, password, role_ids) VALUES
-      (${name}, ${username}, ${password}, ${roleIds});`
-
-    connection.query(sql, (err, result) => {
+    connection.query(sql, [name, username, password, roleIds], (err, result) => {
       if (err) return handleError(err, res)
       const response = result[0]
-      res.json(handleResponse<IUserResult[]>(200, response, '新增成功'))
+      res.json(handleResponse<IUserResult[]>(200, response, MESSAGE_SUCCESS.create_success))
+    })
+  }
+
+  // 修改
+  @patch('/update')
+  @use(checkCreateParams)
+  @use(checkId)
+  update(req: ICreateRequest & IIdBodyRequest, res: Response) {
+    let { id, name, username, password, roleIds } = req.body
+
+    const sql = `UPDATE users SET name=?, username=?, password=?, role_ids=? WHERE id=?;`
+
+    connection.query(sql, [name, username, password, roleIds, id], (err, result) => {
+      if (err) return handleError(err, res)
+      const response = result[0]
+      res.json(handleResponse<IUserResult[]>(200, response, MESSAGE_SUCCESS.update_success))
+    })
+  }
+
+  // 删除
+  @del('/delete')
+  @use(checkId)
+  del(req: IIdBodyRequest, res: Response) {
+    let { id } = req.body
+
+    const sql = `DELETE FROM users WHERE id=?;`
+    connection.query(sql, [id], (err, result) => {
+      if (err) return handleError(err, res)
+      const response = result[0]
+      res.json(handleResponse<IUserResult[]>(200, response, MESSAGE_SUCCESS.delete_success))
     })
   }
 }

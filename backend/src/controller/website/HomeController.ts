@@ -1,19 +1,18 @@
 import { Request, Response } from "express";
 import { controller, get } from "../../decorator";
-import { IHomeDetailResult, IHomeResult } from "../../types";
+import { IHomeDetailResult, IHomeResult, IPageDate } from "../../types";
 import { handleError, handleFilterDate, handleResponse } from "../../utils/utils";
 import connection from '../../utils/connection'
-import { IPageDate } from '../../types/global';
 
 @controller('/website')
 export class HomeController {
   @get('/page')
   page(req: IPageDate, res: Response) {
     let { page, pageSize } = req.query
-    page = page || 1
-    pageSize = pageSize || 20
+    const currentPage = parseInt(page) || 1
+    const currentPageSize = parseInt(pageSize) || 20
 
-    const sql = `SELECT * FROM home LIMIT ${(page - 1) * pageSize}, ${pageSize};
+    const sql = `SELECT * FROM home LIMIT ${(currentPage - 1) * currentPageSize}, ${currentPageSize};
       SELECT COUNT(id) as total FROM home;`
 
     connection.query(sql, (err, result) => {

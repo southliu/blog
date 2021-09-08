@@ -1,5 +1,5 @@
 import express from 'express'
-import router from './router'
+import router from './router';
 import connection from './utils/connection'
 import './controller/website/CommonController'
 import './controller/website/HomeController'
@@ -21,6 +21,9 @@ app.all("*", function(request, response, next){
 });
 
 connection.connect()
+
+app.use(express.json()) // for parsing application/json
+app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
 app.use(router)
 
