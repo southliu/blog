@@ -7,3 +7,8 @@ export interface IPageDate extends Request {
     pageSize: string;
   }
 }
+
+// id请求
+export interface IIdBodyRequest extends Request {
+  body: { id: string; }
+}

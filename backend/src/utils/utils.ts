@@ -1,6 +1,7 @@
 import moment from "moment"
-import { Response } from "express"
+import { NextFunction, Response } from "express"
 import { MysqlError } from "mysql"
+import { IIdBodyRequest } from "../types"
 
 type IResult<T> = {
   code: number;
@@ -29,3 +30,11 @@ export const handleError = (err: MysqlError | null, res: Response) => {
 export const handleFilterDate = (date: string, format: string = 'YYYY-MM-DD hh:mm:ss'): string => {
   return moment(date).format(format)
 }
+
+// 检测是否有传ID
+export const checkId = (req: IIdBodyRequest, res: Response, next: NextFunction): void | Response => {
+  let { id } = req.body
+
+  if (!id) return res.json(handleResponse<string>(500, '请输入ID!'))
+  next();
+};

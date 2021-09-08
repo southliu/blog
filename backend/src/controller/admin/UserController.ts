@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
-import { IPageDate, IUserResult, MESSAGE_SUCCESS } from "../../types";
+import { IIdBodyRequest, IPageDate, IUserResult, MESSAGE_SUCCESS } from "../../types";
 import connection from "../../utils/connection";
-import { handleError, handleResponse } from "../../utils/utils";
+import { checkId, handleError, handleResponse } from "../../utils/utils";
 import { get, post, patch, del, controller, use } from '../../decorator';
 
 interface ICreateRequest extends Request {
@@ -13,10 +13,6 @@ interface ICreateRequest extends Request {
   }
 }
 
-interface IIdBodyRequest extends Request {
-  body: { id: string; }
-}
-
 // 检查新增传值
 const checkCreateParams = (req: Request, res: Response, next: NextFunction): void | Response => {
   let { name, username, password, roleIds } = req.body
@@ -25,14 +21,6 @@ const checkCreateParams = (req: Request, res: Response, next: NextFunction): voi
   if (!username) return res.json(handleResponse<string>(500, '请输入用户名!'))
   if (!password) return res.json(handleResponse<string>(500, '请输入密码!'))
   if (!roleIds) return res.json(handleResponse<string>(500, '请选择角色!'))
-  next();
-};
-
-// 检查ID
-const checkId = (req: Request, res: Response, next: NextFunction): void | Response => {
-  let { id } = req.body
-
-  if (!id) return res.json(handleResponse<string>(500, '请输入ID!'))
   next();
 };
 
