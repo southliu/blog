@@ -23,7 +23,7 @@ const checkCreateParams = (req: Request, res: Response, next: NextFunction): voi
 export class UserController {
   // 分页
   @get('/page')
-  page(req: IPageDate, res: Response) {
+  page(req: IPageDate, res: Response): void {
     let { page, pageSize } = req.query
     const currentPage = parseInt(page) || 1
     const currentPageSize = parseInt(pageSize) || 20
@@ -42,7 +42,7 @@ export class UserController {
   // 新增
   @post('/')
   @use(checkCreateParams)
-  create(req: ICreateRequest, res: Response) {
+  create(req: ICreateRequest, res: Response): void {
     let { name, authIds } = req.body
 
     const sql = `INSERT INTO roles(name, role_ids) VALUES(?, ?);`
@@ -58,7 +58,7 @@ export class UserController {
   @patch('/')
   @use(checkCreateParams)
   @use(checkId)
-  update(req: ICreateRequest & IIdBodyRequest, res: Response) {
+  update(req: ICreateRequest & IIdBodyRequest, res: Response): void {
     let { id } = req.query
     let { name, authIds } = req.body
 
@@ -74,7 +74,7 @@ export class UserController {
   // 删除
   @del('/')
   @use(checkId)
-  del(req: IIdBodyRequest, res: Response) {
+  del(req: IIdBodyRequest, res: Response): void {
     let { id } = req.query
 
     const sql = `DELETE FROM roles WHERE id=?;`

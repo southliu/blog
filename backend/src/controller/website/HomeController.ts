@@ -7,7 +7,7 @@ import connection from '../../utils/connection'
 @controller('/website')
 export class HomeController {
   @get('/page')
-  page(req: IPageDate, res: Response) {
+  page(req: IPageDate, res: Response): void {
     let { page, pageSize } = req.query
     const currentPage = parseInt(page) || 1
     const currentPageSize = parseInt(pageSize) || 20
@@ -26,7 +26,7 @@ export class HomeController {
   }
 
   @get('/detail')
-  detail(req: Request, res: Response) {
+  detail(req: Request, res: Response): void | Response {
     const { id } = req.query
     if (!id) return res.json(handleResponse<string>(500, '请输入id!'))
 

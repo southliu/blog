@@ -7,7 +7,7 @@ import { handleError, handleFilterDate, handleResponse } from "../../utils/utils
 @controller('/website')
 export class CaseController {
   @get('/case/list')
-  case(req: Request, res: Response) {
+  case(req: Request, res: Response): void {
     const sql = `SELECT * FROM cases`
     
     connection.query(sql, (err, result: ICaseResultItem[]) => {
