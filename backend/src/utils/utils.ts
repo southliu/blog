@@ -19,7 +19,7 @@ export const handleResponse = <T>(code: number, data: T, message?: string): IRes
 }
 
 // 错误处理
-export const handleError = (err: MysqlError | null, res: Response) => {
+export const handleError = (err: MysqlError | null, res: Response): void | Response => {
   if (err) {
     console.log('错误信息:', err.message)
     return res.json(handleResponse<string>(500, err.message))
@@ -32,9 +32,12 @@ export const handleFilterDate = (date: string, format: string = 'YYYY-MM-DD hh:m
 }
 
 // 检测是否有传ID
-export const checkId = (req: IIdBodyRequest, res: Response, next: NextFunction): void | Response => {
-  let { id } = req.body
+export const checkId = (req: IIdBodyRequest, res: Response, next: NextFunction): void => {
+  let { id } = req.query
 
-  if (!id) return res.json(handleResponse<string>(500, '请输入ID!'))
-  next();
+  if (!id) {
+    res.json(handleResponse<string>(500, '请输入ID!'))
+  } else {
+    next();
+  }
 };

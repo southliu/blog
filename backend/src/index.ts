@@ -1,10 +1,7 @@
 import express from 'express'
 import router from './router';
 import connection from './utils/connection'
-import './controller/website/CommonController'
-import './controller/website/HomeController'
-import './controller/website/CaseController'
-import './controller/admin/UserController'
+import './controller'
 
 const app = express()
 

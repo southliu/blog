@@ -10,5 +10,7 @@ export interface IPageDate extends Request {
 
 // id请求
 export interface IIdBodyRequest extends Request {
-  body: { id: string; }
+  body: {
+    query: { id: string; }
+  }
 }

@@ -45,7 +45,7 @@ export class UserController {
   }
 
   // 新增
-  @post('/create')
+  @post('/')
   @use(checkCreateParams)
   create(req: ICreateRequest, res: Response) {
     let { name, username, password, roleIds } = req.body
@@ -60,11 +60,12 @@ export class UserController {
   }
 
   // 修改
-  @patch('/update')
+  @patch('/')
   @use(checkCreateParams)
   @use(checkId)
   update(req: ICreateRequest & IIdBodyRequest, res: Response) {
-    let { id, name, username, password, roleIds } = req.body
+    let { id } = req.query
+    let { name, username, password, roleIds } = req.body
 
     const sql = `UPDATE users SET name=?, username=?, password=?, role_ids=? WHERE id=?;`
 
@@ -76,10 +77,10 @@ export class UserController {
   }
 
   // 删除
-  @del('/delete')
+  @del('/')
   @use(checkId)
   del(req: IIdBodyRequest, res: Response) {
-    let { id } = req.body
+    let { id } = req.query
 
     const sql = `DELETE FROM users WHERE id=?;`
     connection.query(sql, [id], (err, result) => {
