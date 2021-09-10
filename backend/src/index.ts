@@ -1,6 +1,7 @@
 import express from 'express'
 import router from './router';
 import connection from './utils/connection'
+import cookieSession from 'cookie-session';
 import './controller'
 
 const app = express()
@@ -22,6 +23,11 @@ connection.connect()
 app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
+app.use(cookieSession({
+  name: 'session',
+  keys: ['isLogin'],
+  maxAge: 24 * 60 * 60 * 1000
+}))
 app.use(router)
 
 app.listen(5000, '0.0.0.0', () => {
