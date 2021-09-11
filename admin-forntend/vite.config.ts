@@ -16,6 +16,13 @@ export default defineConfig({
   define: {
     'process.env': {}
   },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: '@import "./src/assets/css/default.scss"'
+      }
+    }
+  },
   server: {
     port: 8080,
     open: true
