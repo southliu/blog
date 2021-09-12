@@ -1,3 +1,10 @@
-$primary-color: blue;
-$primary-color-hover: yellow;
+$primary-color: #409eff;
+$primary-color-hover: #4a81b8;
 $primary-color-active: red;
+$primary-bg: #fff;
+
+// button
+$button-bg: $primary-color;
+$button-hover: $primary-color-hover;
+$button-active: $primary-color-active;
+$button-text: #fff;

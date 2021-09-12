@@ -1,0 +1,11 @@
+@import './default.scss';
+@import './fun.scss';
+
+.btn {
+  color: $button-text !important;
+  background-color: $button-bg !important;
+}
+.btn:hover {
+  color: $button-text !important;
+  background-color: $button-hover !important;
+}

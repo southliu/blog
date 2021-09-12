@@ -1,37 +1,66 @@
 <template>
-  <el-card class="card">
-    <el-form
-      :model="formData"
-      status-icon
-      :rules="rules"
-      ref="formRef"
-      label-width="100px"
-      class="form"
-    >
-      <el-form-item label="账号" prop="username">
-        <el-input v-model="formData.username" />
-      </el-form-item>
-      <el-form-item label="密码" prop="password">
-        <el-input
-          type="password"
-          v-model="formData.password"
-          autocomplete="off"
-        />
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="submitForm()">提交</el-button>
-      </el-form-item>
-    </el-form>
-  </el-card>
+  <div class="bg">
+    <el-card class="card">
+      <h3 class="title">账户登录</h3>
+      <el-form
+        :model="formData"
+        status-icon
+        :rules="rules"
+        ref="formRef"
+        label-width="100px"
+        class="form"
+      >
+        <el-form-item
+          label="账号"
+          prop="username"
+          :rules="[{ required: true, message: '账号不能为空!'}]"
+        >
+          <el-input v-model="formData.username" />
+        </el-form-item>
+        <el-form-item
+          label="密码"
+          prop="password"
+          :required="true"
+        >
+          <el-input
+            type="password"
+            v-model="formData.password"
+            autocomplete="off"
+          />
+        </el-form-item>
+        <el-form-item>
+          <el-button
+            class="btn"
+            @click="submitForm()"
+          >
+            提交
+          </el-button>
+        </el-form-item>
+      </el-form>
+    </el-card>
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, getCurrentInstance, reactive, ref } from 'vue'
+import { Rules } from 'async-validator';
+
+type IValidateCallBack = (error: string | string[] | void) => void
+
+// 校验密码
+const validatePassword = (rule: Rules, value: string, callback: IValidateCallBack): void => {
+  const reg = /^(?=.*\d)(?=.*[a-zA-Z])[\da-zA-Z]{6,18}$/;
+  if (!value) callback('请输入密码!')
+  if (!reg.test(value)) callback('密码长度6-18位,数字和英文组合!')
+  callback()
+}
 
 export default defineComponent({
   setup(ctx) {
     // 规则
-    const rules = reactive({})
+    const rules = reactive({
+      password: [{ validator: validatePassword, trigger: 'blur' }],
+    })
     // formData数据
     const formData = reactive({
       username: '',
@@ -61,8 +90,19 @@ export default defineComponent({
 
 
 <style lang="scss" scoped>
+  .title {
+    margin-bottom: 30px;
+  }
+  .bg {
+    @include absolute-center;
+    background-color: $primary-bg;
+  }
   .card {
     width: 480px;
-    padding: 10px;
+    padding:0 10px;
+  }
+  .btn {
+    width: 300px;
+    margin-top: 20px;
   }
 </style>
