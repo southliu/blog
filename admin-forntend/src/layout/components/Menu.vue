@@ -17,7 +17,7 @@ export default defineComponent({
 <style lang="scss" scoped>
   .menu {
     width: 250px;
-    min-height: calc(100vh - 30px);
+    min-height: calc(100vh - 60px);
     border-right: 1px solid #999;
   }
 </style>
