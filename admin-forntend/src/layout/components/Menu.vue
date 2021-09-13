@@ -1,7 +1,7 @@
 <template>
-  <menu class="menu">
+  <div class="menu">
     Menu
-  </menu>
+  </div>
 </template>
 
 <script lang="ts">
@@ -16,7 +16,8 @@ export default defineComponent({
 
 <style lang="scss" scoped>
   .menu {
-    border-top: 1px solid #999;
+    width: 250px;
+    min-height: calc(100vh - 30px);
     border-right: 1px solid #999;
   }
 </style>

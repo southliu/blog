@@ -1,8 +1,10 @@
 <template>
   <Header />
-  <div class="con">
+  <div class="box">
     <Menu />
-    <router-view></router-view>
+    <div class="con">
+      <router-view></router-view>
+    </div>
   </div>
   <Footer />
 </template>
@@ -26,8 +28,11 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-  .con {
+  .box {
     display: flex;
-    margin-top: 10px;
+  }
+  .con {
+    min-height: calc(100vh - 60px);
+    box-sizing: border-box;
   }
 </style>

@@ -20,6 +20,7 @@ export default defineComponent({
     @include flex(center, space-between);
     height: 30px;
     padding: 0 30px;
+    box-sizing: border-box;
     border-bottom: 1px solid #999;
     box-shadow: 0 0 10px 0 rgba($color: #000000, $alpha: 0.2);
   }
