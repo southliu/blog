@@ -42,8 +42,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, getCurrentInstance, reactive, ref } from 'vue'
+import { defineComponent, reactive, ref, unref } from 'vue'
 import { Rules } from 'async-validator';
+import { useTitle } from '@/hooks'
 
 type IValidateCallBack = (error: string | string[] | void) => void
 
@@ -56,7 +57,11 @@ const validatePassword = (rule: Rules, value: string, callback: IValidateCallBac
 }
 
 export default defineComponent({
-  setup(ctx) {
+  setup() {
+    useTitle()
+
+    const formRef = ref()
+  
     // 规则
     const rules = reactive({
       password: [{ validator: validatePassword, trigger: 'blur' }],
@@ -68,18 +73,22 @@ export default defineComponent({
     })
 
     // 提交事件
-    const submitForm = () => {
-      // getCurrentInstance().ctx.$refs.formRef.validate((valid) => {
-      //   if (valid) {
-      //     alert('submit!')
-      //   } else {
-      //     console.log('error submit!!')
-      //     return false
-      //   }
-      // })
+    const submitForm = (): void | false => {
+      const form = unref(formRef)
+      if (!form) return false
+      form.validate((valid: boolean) => {
+        console.log('valid:', valid)
+        if (valid) {
+          alert('submit!')
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
     }
 
     return {
+      formRef,
       rules,
       formData,
       submitForm
