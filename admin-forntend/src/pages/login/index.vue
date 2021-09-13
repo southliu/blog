@@ -51,7 +51,7 @@ type IValidateCallBack = (error: string | string[] | void) => void
 const validatePassword = (rule: Rules, value: string, callback: IValidateCallBack): void => {
   const reg = /^(?=.*\d)(?=.*[a-zA-Z])[\da-zA-Z]{6,18}$/;
   if (!value) callback('请输入密码!')
-  if (!reg.test(value)) callback('密码长度6-18位,数字和英文组合!')
+  if (!reg.test(value)) callback('密码长度6-18位必须同时包含字母和数字!')
   callback()
 }
 

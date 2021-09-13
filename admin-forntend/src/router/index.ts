@@ -1,13 +1,21 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 
-const routes: RouteRecordRaw[] = [
+export const menus: RouteRecordRaw[] = [
   {
-    name: 'Home',
+    name: 'Layout',
     path: '/',
-    meta: {
-      title: '首页'
-    },
-    component: () => import('@pages/home/index.vue')
+    redirect: '/home',
+    component: () => import('@/layout/index.vue'),
+    children: [
+      {
+        name: 'Home',
+        path: '/home',
+        meta: {
+          title: '首页'
+        },
+        component: () => import('@pages/home/index.vue'),
+      }
+    ]
   },
   {
     name: 'Login',
@@ -21,7 +29,7 @@ const routes: RouteRecordRaw[] = [
 
 const router = createRouter({
   history: createWebHistory(),
-  routes
+  routes: menus
 })
 
 export default router
