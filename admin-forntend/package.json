@@ -16,6 +16,7 @@
     "vuex": "^4.0.2"
   },
   "devDependencies": {
+    "@types/js-cookie": "^2.2.7",
     "@types/node": "^16.7.10",
     "@vitejs/plugin-vue": "^1.6.0",
     "@vue/compiler-sfc": "^3.2.6",
