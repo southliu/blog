@@ -15,8 +15,8 @@ interface ILoginRequest extends Request {
 function checkParams(req: ILoginRequest, res: Response, next: NextFunction): void | Response {
   const { username, password } = req.body
 
-  if (!username) return res.json(handleResponse<string>(500, '请输入用户名!'))
-  if (!password) return res.json(handleResponse<string>(500, '请输入密码!'))
+  if (!username) return res.json(handleResponse<boolean>(500, false, '请输入用户名!'))
+  if (!password) return res.json(handleResponse<boolean>(500, false, '请输入密码!'))
   next()
 }
 
@@ -33,7 +33,7 @@ export class LoginController {
     const isLogin = LoginController.handleIsLogin(req)
     console.log(req.session?.isLogin)
 
-    if (isLogin) return res.json(handleResponse<string>(200, '一登录'))
+    if (isLogin) return res.json(handleResponse<string>(200, '已登录'))
 
     const sql = `SELECT username, password FROM users WHERE username=? AND password=?`
 
@@ -41,7 +41,7 @@ export class LoginController {
       if (err) return handleError(err, res)
       if (result.length > 0) return res.json(handleResponse<boolean>(200, true))
       if (req.session) req.session.isLogin = true
-      res.json(handleResponse<string>(500, '请输入正确账号或密码!'))
+      res.json(handleResponse<boolean>(500, false, '请输入正确账号或密码!'))
     })
   }
 }
