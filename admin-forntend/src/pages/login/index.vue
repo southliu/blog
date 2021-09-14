@@ -45,14 +45,15 @@
 import { defineComponent, reactive, ref, unref } from 'vue'
 import { Rules } from 'async-validator';
 import { useTitle } from '@/hooks'
+import API from '@api/login'
 
 type IValidateCallBack = (error: string | string[] | void) => void
 
 // 校验密码
 const validatePassword = (rule: Rules, value: string, callback: IValidateCallBack): void => {
-  const reg = /^(?=.*\d)(?=.*[a-zA-Z])[\da-zA-Z]{6,18}$/;
+  const reg = /^(?=.*\d)(?=.*[a-zA-Z])[\da-zA-Z~!@#$%^&*]{6,30}$/;
   if (!value) callback('请输入密码!')
-  if (!reg.test(value)) callback('密码长度6-18位必须同时包含字母和数字!')
+  if (!reg.test(value)) callback('密码长度6-30位必须同时包含字母和数字!')
   callback()
 }
 
@@ -79,9 +80,11 @@ export default defineComponent({
       form.validate((valid: boolean) => {
         console.log('valid:', valid)
         if (valid) {
-          alert('submit!')
+          console.log('submit')
+          API.login(formData).then((response: any) => {
+            console.log('response:', response)
+          })
         } else {
-          console.log('error submit!!')
           return false
         }
       })
