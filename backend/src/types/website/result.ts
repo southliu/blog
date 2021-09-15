@@ -1,6 +1,6 @@
 // 首页数据
 export interface IHomeResult {
-  id: string | number;
+  id: number;
   title: string;
   image?: string;
   date: string;
@@ -9,7 +9,7 @@ export interface IHomeResult {
 
 // 文章详情数据
 export interface IHomeDetailResult {
-  id: string | number;
+  id: number;
   title: string;
   date: string;
   content: string;
@@ -19,7 +19,7 @@ export interface IHomeDetailResult {
 
 // 项目数据
 export interface ICaseResultItem {
-  id: string | number;
+  id: number;
   title: string;
   year: string;
   date: string;
