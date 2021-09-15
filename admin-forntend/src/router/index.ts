@@ -21,7 +21,8 @@ export const menus: RouteRecordRaw[] = [
     name: 'Login',
     path: '/login',
     meta: {
-      title: '登录'
+      title: '登录',
+      isNotShow: true
     },
     component: () => import('@pages/login/index.vue')
   }

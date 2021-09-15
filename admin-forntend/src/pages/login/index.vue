@@ -65,6 +65,7 @@ export default defineComponent({
     useTitle()
 
     const formRef = ref()
+    const router = useRouter()
   
     // formData数据
     const formData = reactive<ILoginData>({
@@ -77,13 +78,11 @@ export default defineComponent({
       const form = unref(formRef)
       if (!form) return false
       form.validate((valid: boolean) => {
-        console.log('valid:', valid)
         if (valid) {
           API.login(formData).then((response) => {
             const res = response.data
             if (res.code === 200) {
               const { token } = res.data
-              const router = useRouter()
               useToken(token)
               router.push('/dashboard')
             }

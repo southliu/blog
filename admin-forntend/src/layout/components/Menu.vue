@@ -6,10 +6,15 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import { menus } from '../../router/index';
 
 export default defineComponent({
   name: 'Menu',
   setup() {
+    
+    return {
+      menus
+    }
   }
 })
 </script>
