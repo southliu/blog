@@ -9,5 +9,4 @@ declare global {
   interface IResponseData<T> extends IPublicResponse {
     data: T
   }
-  
 }

@@ -1,12 +1,9 @@
 import request from '@/utils/request'
 import { AxiosResponse } from 'axios'
+import { ILoginData, ILoginResult } from '@/types'
 
 // 登录
-interface ILogin {
-  username: string;
-  password: string;
-}
-function login(data: ILogin): Promise<AxiosResponse<IResponseData<boolean>>> {
+function login(data: ILoginData): Promise<AxiosResponse<IResponseData<ILoginResult>>> {
   return request({
     method: 'post',
     url: '/login',

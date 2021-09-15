@@ -21,6 +21,7 @@
           label="密码"
           prop="password"
           :required="true"
+          :rules="[{ validator: validatePassword, trigger: 'blur' }]"
         >
           <el-input
             type="password"
@@ -44,7 +45,9 @@
 <script lang="ts">
 import { defineComponent, reactive, ref, unref } from 'vue'
 import { Rules } from 'async-validator';
-import { useTitle } from '@/hooks'
+import { useTitle, useToken } from '@/hooks'
+import { ILoginData } from '@/types';
+import { useRouter } from 'vue-router'
 import API from '@api/login'
 
 type IValidateCallBack = (error: string | string[] | void) => void
@@ -63,12 +66,8 @@ export default defineComponent({
 
     const formRef = ref()
   
-    // 规则
-    const rules = reactive({
-      password: [{ validator: validatePassword, trigger: 'blur' }],
-    })
     // formData数据
-    const formData = reactive({
+    const formData = reactive<ILoginData>({
       username: '',
       password: ''
     })
@@ -80,9 +79,14 @@ export default defineComponent({
       form.validate((valid: boolean) => {
         console.log('valid:', valid)
         if (valid) {
-          console.log('submit')
-          API.login(formData).then((response: any) => {
-            console.log('response:', response)
+          API.login(formData).then((response) => {
+            const res = response.data
+            if (res.code === 200) {
+              const { token } = res.data
+              const router = useRouter()
+              useToken(token)
+              router.push('/dashboard')
+            }
           })
         } else {
           return false
@@ -92,8 +96,8 @@ export default defineComponent({
 
     return {
       formRef,
-      rules,
       formData,
+      validatePassword,
       submitForm
     }
   }
@@ -106,7 +110,7 @@ export default defineComponent({
     margin-bottom: 30px;
   }
   .bg {
-    @include absolute-center;
+    @include fixed-center;
     background-color: $primary-bg;
   }
   .card {

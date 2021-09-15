@@ -11,6 +11,13 @@
   transform: translate(-50%, -50%);
 }
 
+@mixin fixed-center {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 @mixin flex($align: center, $justify: flex-start, $direction: row) {
   display: flex;
   align-items: $align;

@@ -4,16 +4,16 @@ export const menus: RouteRecordRaw[] = [
   {
     name: 'Layout',
     path: '/',
-    redirect: '/home',
+    redirect: '/dashboard',
     component: () => import('@/layout/index.vue'),
     children: [
       {
-        name: 'Home',
-        path: '/home',
+        name: 'Dashboard',
+        path: '/dashboard',
         meta: {
           title: '首页'
         },
-        component: () => import('@pages/home/index.vue'),
+        component: () => import('@pages/dashboard/index.vue'),
       }
     ]
   },
