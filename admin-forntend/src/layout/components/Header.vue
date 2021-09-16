@@ -39,7 +39,7 @@ export default defineComponent({
 <style lang="scss" scoped>
   .header {
     @include flex(center, space-between);
-    height: 30px;
+    height: 35px;
     padding: 0 30px;
     box-sizing: border-box;
     border-bottom: 1px solid #999;

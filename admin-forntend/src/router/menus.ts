@@ -11,7 +11,8 @@ export const menus: RouteRecordRaw[] = [
         name: 'Dashboard',
         path: '/dashboard',
         meta: {
-          title: '首页'
+          title: '首页',
+          isNotShow: true
         },
         component: () => import('@/pages/dashboard/index.vue'),
       },
@@ -19,7 +20,8 @@ export const menus: RouteRecordRaw[] = [
         name: 'System',
         path: '/system',
         meta: {
-          title: '系统管理'
+          title: '系统管理',
+          iconfont: 'icon-system'
         },
         redirect: '/system/user',
         component: () => import('@/pages/system/user.vue'),
@@ -28,9 +30,19 @@ export const menus: RouteRecordRaw[] = [
             name: 'SystemUser',
             path: 'user',
             meta: {
-              title: '用户管理'
+              title: '用户管理',
+              iconfont: 'icon-yonghuguanli'
             },
             component: () => import('@/pages/system/user.vue'),
+          },
+          {
+            name: 'SystemRole',
+            path: 'role',
+            meta: {
+              title: '角色管理',
+              iconfont: 'icon-jiaoseguanli'
+            },
+            component: () => import('@/pages/system/role.vue'),
           },
         ]
       },

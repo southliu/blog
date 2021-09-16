@@ -20,7 +20,6 @@ router.beforeEach((to: RouteLocationNormalized, from: RouteLocationNormalized, n
   }
 
   next()
-  NProgress.done()
 })
 
 router.afterEach(() => {

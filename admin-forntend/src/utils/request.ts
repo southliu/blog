@@ -47,6 +47,7 @@ service.interceptors.response.use(
     loading.close()
     const res = response.data
     if (res?.code === 601) {
+      useToken(null, true)
       ElMessage({ type: 'warning', message: res.message || '权限不足,请重新登录!' })
       return Promise.reject(res)
     }
