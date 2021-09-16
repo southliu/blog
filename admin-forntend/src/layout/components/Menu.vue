@@ -16,44 +16,38 @@ interface IMenuDatas {
   iconfont: string;
 }
 
+interface IMetaData extends RouteMeta, IMenuDatas {
+  isNotShow: boolean;
+}
+
 export default defineComponent({
   name: 'Menu',
   setup() {
     const data = ref<IMenuDatas[]>([])
 
     onMounted(() => {
-      handleMenus()
+      const data: IMenuDatas[] = handleMenus()
+      console.log('handleMenus:', data)
     })
 
     // 处理菜单数据
     const handleMenus = (): IMenuDatas[] => {
-      // const values: IMenuDatas[] = []
       const values: IMenuDatas[] = handleRecursion<IMenuDatas, RouteRecordRaw> (menus, item => {
         console.log('item:', item)
-        let data: IMenuDatas = {
-          title: '',
-          path: '',
-          iconfont: ''
-        }
+        if (!item.meta) return undefined
+        const meta = item.meta as IMetaData
+        const { title, path, iconfont, isNotShow } = meta
+        const data: IMenuDatas = { title, path, iconfont }
+        const result = !isNotShow ? data : undefined
+        console.log('result:', result)
 
-        return data
+        return result
       })
+
+      console.log('values:', values)
 
       return values
     }
-
-    // function handleRecursion<T, Y extends IRecursionData<Y>>(data: Y[], callback: (item: Y) => T): T[] {
-    //   let result: T[] = []
-    //   data?.length > 0 && data.forEach((item: Y & IRecursionData<Y>) => {
-    //     result.push(callback(item))
-
-    //     if (item.children && item.children.length > 0) {
-    //       handleRecursion(item.children, callback)
-    //     }
-    //   })
-
-    //   return result
-    // }
     
     return {
       data
