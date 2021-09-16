@@ -7,8 +7,8 @@
 <script lang="ts">
 import { defineComponent, onMounted, ref } from 'vue'
 import { menus } from '@/router/menus';
-import { RouteMeta } from 'vue-router';
-import { handleRecursion, IChildrenData } from '@utils/utils'
+import { RouteMeta, RouteRecordRaw } from 'vue-router';
+import { handleRecursion } from '@utils/utils'
 
 interface IMenuDatas {
   title: string;
@@ -16,33 +16,28 @@ interface IMenuDatas {
   iconfont: string;
 }
 
-interface IMetaData extends RouteMeta, IMenuDatas {
-  isNotShow: boolean;
-}
-
-interface IItem extends IMenuDatas {
-  children: IItem[]
-}
-
 export default defineComponent({
   name: 'Menu',
   setup() {
     const data = ref<IMenuDatas[]>([])
 
-    onMounted(() => {})
+    onMounted(() => {
+      handleMenus()
+    })
 
     // 处理菜单数据
     const handleMenus = (): IMenuDatas[] => {
-      const values: IMenuDatas[] = []
-      // const values: IMenuDatas[] = handleRecursion<IMenuDatas, any> (menus, item => {
-      // })
-      // menus.forEach(item => {
-      //   const meta = item.meta as IMetaData
-      //   const { isNotShow, title, path, iconfont } = meta
-      //   if (!isNotShow) {
-          
-      //   }
-      // })
+      // const values: IMenuDatas[] = []
+      const values: IMenuDatas[] = handleRecursion<IMenuDatas, RouteRecordRaw> (menus, item => {
+        console.log('item:', item)
+        let data: IMenuDatas = {
+          title: '',
+          path: '',
+          iconfont: ''
+        }
+
+        return data
+      })
 
       return values
     }

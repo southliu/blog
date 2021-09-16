@@ -1,5 +1,5 @@
 // 迭代数组
-export interface IChildrenData<T> { children: T[]; } 
+export interface IChildrenData<T> { children?: T[]; } 
 export function handleRecursion<T, Y extends IChildrenData<Y>>(data: Y[], callback: (item: Y) => T): T[] {
   let result: T[] = []
   data?.length > 0 && data.forEach((item: Y & IChildrenData<Y>) => {

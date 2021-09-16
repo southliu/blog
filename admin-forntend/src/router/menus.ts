@@ -28,7 +28,7 @@ export const menus: RouteRecordRaw[] = [
         children: [
           {
             name: 'SystemUser',
-            path: 'user',
+            path: '/system/user',
             meta: {
               title: '用户管理',
               iconfont: 'icon-yonghuguanli'
@@ -37,7 +37,7 @@ export const menus: RouteRecordRaw[] = [
           },
           {
             name: 'SystemRole',
-            path: 'role',
+            path: '/system/role',
             meta: {
               title: '角色管理',
               iconfont: 'icon-jiaoseguanli'
