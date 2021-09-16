@@ -28,9 +28,9 @@ service.interceptors.request.use(
     // 开启loading
     loading = ElLoading.service({
       lock: true,
-      text: 'Loading',
+      text: '加载中...',
       spinner: 'el-icon-loading',
-      background: 'rgba(0, 0, 0, 0.4)'
+      background: 'rgba(0, 0, 0, 0.2)'
     })
 
     // 头部添加token

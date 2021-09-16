@@ -24,7 +24,7 @@ export default defineComponent({
 
     // 退出登录
     const handleLogout = () => {
-      useToken('', true)
+      useToken(null, true)
       router.push('/login')
     }
 

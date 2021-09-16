@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { menus } from '../../router/index';
+import { menus } from '@/router/menus';
 
 export default defineComponent({
   name: 'Menu',

@@ -45,7 +45,7 @@
 <script lang="ts">
 import { defineComponent, reactive, ref, unref } from 'vue'
 import { Rules } from 'async-validator';
-import { useTitle, useToken } from '@/hooks'
+import { useToken } from '@/hooks'
 import { ILoginData } from '@/types';
 import { useRouter } from 'vue-router'
 import API from '@api/login'
@@ -62,8 +62,6 @@ const validatePassword = (rule: Rules, value: string, callback: IValidateCallBac
 
 export default defineComponent({
   setup() {
-    useTitle()
-
     const formRef = ref()
     const router = useRouter()
   

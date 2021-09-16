@@ -1,36 +1,30 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-
-export const menus: RouteRecordRaw[] = [
-  {
-    name: 'Layout',
-    path: '/',
-    redirect: '/dashboard',
-    component: () => import('@/layout/index.vue'),
-    children: [
-      {
-        name: 'Dashboard',
-        path: '/dashboard',
-        meta: {
-          title: '首页'
-        },
-        component: () => import('@pages/dashboard/index.vue'),
-      }
-    ]
-  },
-  {
-    name: 'Login',
-    path: '/login',
-    meta: {
-      title: '登录',
-      isNotShow: true
-    },
-    component: () => import('@pages/login/index.vue')
-  }
-]
+import { useToken } from '@/hooks'
+import { createRouter, createWebHistory, NavigationGuardNext, RouteLocationNormalized } from 'vue-router'
+import { menus } from './menus'
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
 
 const router = createRouter({
   history: createWebHistory(),
   routes: menus
+})
+
+router.beforeEach((to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext) => {
+  document.title = (to.meta.title as string) || '后台管理'
+  const token = useToken()
+  NProgress.start()
+
+  if (to.path === '/login') {
+    // 有token情况返回首页
+    if (token) next({ path: '/dashboard' })
+  }
+
+  next()
+  NProgress.done()
+})
+
+router.afterEach(() => {
+  NProgress.done()
 })
 
 export default router
