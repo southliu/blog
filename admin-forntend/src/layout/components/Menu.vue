@@ -1,7 +1,9 @@
 <template>
   <el-menu
-    default-active="1"
     class="menu"
+    default-active="/system/user"
+    :default-openeds="[0]"
+    :unique-opened="true"
     :collapse="isCollapse"
     @open="handleOpen"
     @close="handleClose"
@@ -13,7 +15,7 @@
       :index="index"
     >
       <template #title>
-        <i :class="`iconfont ${item.iconfont}`"></i>
+        <i :class="`iconfont ${item.iconfont}`" />
         <span>{{ item.title }}</span>
       </template>
 
@@ -21,6 +23,7 @@
         v-for="menu in item.children"
         :key="menu.path"
         :index="menu.path"
+        @click="handleGoPath(menu.path)"
       >
         {{ menu.title || '' }}
       </el-menu-item>
@@ -31,7 +34,7 @@
 <script lang="ts">
 import { defineComponent, onMounted, ref } from 'vue'
 import { menus } from '@/router/menus';
-import { RouteMeta, RouteRecordRaw } from 'vue-router';
+import { RouteMeta, RouteRecordRaw, useRouter } from 'vue-router';
 
 interface IPublicMetaData {
   title: string;
@@ -55,7 +58,8 @@ export default defineComponent({
   name: 'Menu',
   setup() {
     const data = ref<IMenuDatas[]>([])
-    const isCollapse = ref(true);
+    const isCollapse = ref(false);
+    const router = useRouter()
 
     onMounted(() => {
       handleMenus()
@@ -100,21 +104,30 @@ export default defineComponent({
     const handleClose = (key: string, keyPath: string) => {
       console.log(key, keyPath);
     };
+
+    // 跳转路由
+    const handleGoPath = (path: string) => {
+      router.push(path)
+    }
     
     return {
       data,
       isCollapse,
       handleOpen,
       handleClose,
+      handleGoPath
     }
   }
 })
 </script>
 
 <style lang="scss" scoped>
-  .menu {
+  .menu:not(.el-menu--collapse) {
     width: 250px;
     min-height: calc(100vh - 35px);
     border-right: 1px solid #999;
+  }
+  .iconfont {
+    margin-right: 5px;
   }
 </style>
