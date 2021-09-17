@@ -1,14 +1,20 @@
-// 迭代数组
-export interface IChildrenData<T> { children?: T[]; } 
-export function handleRecursion<T, Y extends IChildrenData<Y>>(data: Y[], callback: (item: Y) => T | undefined): T[] {
-  let result: T[] = []
-  data?.length > 0 && data.forEach((item: Y & IChildrenData<Y>) => {
+/**
+ * 迭代数组成新数组
+ * @param data 需要过滤的值
+ * @param callback 处理data数据返回新的值
+ */
+export interface IRecursionChildrenData<T> {
+  children?: T[];
+} 
+export function handleRecursion<T, Y extends IRecursionChildrenData<Y>>(data: Y[], callback: (item: Y) => T | undefined): T[] {
+  const result: T[] = []
+  data?.length > 0 && data.forEach((item: Y & IRecursionChildrenData<Y>) => {
     const callbackData = callback(item)
-    callbackData && result.push(callbackData)
-
-    if (item.children && item.children.length > 0) {
-      handleRecursion(item.children, callback)
+    if (callbackData && item.children && item.children.length > 0) {
+      (callbackData as IRecursionChildrenData<T>).children = handleRecursion(item.children, callback)
     }
+
+    callbackData && result.push(callbackData)
   })
 
   return result
