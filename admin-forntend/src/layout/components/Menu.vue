@@ -2,7 +2,6 @@
   <el-menu
     default-active="1"
     class="menu"
-    mode="vertical"
     :collapse="isCollapse"
     @open="handleOpen"
     @close="handleClose"
