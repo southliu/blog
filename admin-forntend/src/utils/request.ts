@@ -43,7 +43,7 @@ service.interceptors.request.use(
 
 // 响应拦截
 service.interceptors.response.use(
-  (response: AxiosResponse<IPublicResponse>) => {
+  (response: AxiosResponse<IResponseData>) => {
     loading.close()
     const res = response.data
     if (res?.code === 601) {

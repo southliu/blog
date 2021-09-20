@@ -1,12 +1,9 @@
 export {}
 declare global {
-  interface IPublicResponse {
+  // api响应
+  interface IResponseData<T = undefined> {
     code: number;
     message?: string;
-  }
-  
-  // api响应
-  interface IResponseData<T> extends IPublicResponse {
     data: T
   }
 }
