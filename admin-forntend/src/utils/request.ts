@@ -33,9 +33,12 @@ service.interceptors.request.use(
       background: 'rgba(0, 0, 0, 0.2)'
     })
 
+    /**
+     * TODO: 添加token会提示跨域问题
+     */
     // 头部添加token
-    const token = useToken()
-    if (token) config.headers['Authorization'] = token
+    // const token = useToken()
+    // if (token) config.headers['Authorization'] = token
     return config
   },
   error => handleError(error)

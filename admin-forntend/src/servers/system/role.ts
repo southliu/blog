@@ -2,7 +2,7 @@ import request from '@/utils/request'
 import { IRoleRequestData, IRoleResponseData } from '@/types'
 
 // 查询-根据条件分页查询
-function find_page(data: IPageRequest<IRoleRequestData>): IAPIResult<IRoleResponseData[]> {
+function find_page(data: IPageRequest<IRoleRequestData>): IAPIPageResult<IRoleResponseData[]> {
   return request.get('/user/page', { params: data })
 }
 
