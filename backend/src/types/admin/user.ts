@@ -1,7 +1,7 @@
 // 用户数据
 export interface IUserResult {
   id: number;
+  name: string;
   username: string;
-  password: string;
   roleIds: string[] | number[]
-} 
+}

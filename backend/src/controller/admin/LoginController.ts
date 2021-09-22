@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { controller, post, use } from "../../decorator";
-import { ILoginResult } from "../../types/admin/loginResult";
+import { ILoginResult } from "../../types/admin/login";
 import connection from "../../utils/connection";
 import { handleError, handleResponse } from "../../utils/utils";
 

@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { IIdBodyRequest, IPageDate, IUserResult, MESSAGE_SUCCESS } from "../../types";
+import { IIdBodyRequest, IPageDate, IRoleResult, MESSAGE_SUCCESS } from "../../types";
 import connection from "../../utils/connection";
 import { checkId, handleError, handleResponse } from "../../utils/utils";
 import { get, post, patch, del, controller, use } from '../../decorator';
@@ -34,7 +34,7 @@ export class UserController {
       if (err) return handleError(err, res)
       const items = result[0]
       const response = { items, ...result[1][0] }
-      res.json(handleResponse<IUserResult[]>(200, response))
+      res.json(handleResponse<IRoleResult[]>(200, response))
     })
   }
 
@@ -48,7 +48,7 @@ export class UserController {
     connection.query(sql, [id], (err, result) => {
       if (err) return handleError(err, res)
       const response = result[0]
-      res.json(handleResponse<IUserResult[]>(200, response))
+      res.json(handleResponse<IRoleResult[]>(200, response))
     })
   }
 
@@ -62,7 +62,7 @@ export class UserController {
     connection.query(sql, [name, authIds], (err, result) => {
       if (err) return handleError(err, res)
       const response = result[0]
-      res.json(handleResponse<IUserResult[]>(200, response, MESSAGE_SUCCESS.create_success))
+      res.json(handleResponse<IRoleResult[]>(200, response, MESSAGE_SUCCESS.create_success))
     })
   }
 
@@ -78,7 +78,7 @@ export class UserController {
     connection.query(sql, [name, authIds, id], (err, result) => {
       if (err) return handleError(err, res)
       const response = result[0]
-      res.json(handleResponse<IUserResult[]>(200, response, MESSAGE_SUCCESS.update_success))
+      res.json(handleResponse<IRoleResult[]>(200, response, MESSAGE_SUCCESS.update_success))
     })
   }
 
@@ -92,7 +92,7 @@ export class UserController {
     connection.query(sql, [id], (err, result) => {
       if (err) return handleError(err, res)
       const response = result[0]
-      res.json(handleResponse<IUserResult[]>(200, response, MESSAGE_SUCCESS.delete_success))
+      res.json(handleResponse<IRoleResult[]>(200, response, MESSAGE_SUCCESS.delete_success))
     })
   }
 }
