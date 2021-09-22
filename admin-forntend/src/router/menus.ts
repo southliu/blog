@@ -14,7 +14,7 @@ export const menus: RouteRecordRaw[] = [
   {
     name: 'Layout',
     path: '/',
-    redirect: '/dashboard',
+    redirect: '/system/user',
     meta: { isHidden: true },
     component: () => Layout,
     children: [

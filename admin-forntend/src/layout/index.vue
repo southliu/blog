@@ -29,6 +29,7 @@ export default defineComponent({
     display: flex;
   }
   .con {
+    width: calc(100% - 250px);
     min-height: calc(100vh - 35px);
     box-sizing: border-box;
   }
