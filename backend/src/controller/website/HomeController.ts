@@ -11,7 +11,6 @@ export class HomeController {
     let { page, pageSize } = req.query
     const currentPage = parseInt(page) || 1
     const currentPageSize = parseInt(pageSize) || 20
-
     const sql = `SELECT * FROM home LIMIT ${(currentPage - 1) * currentPageSize}, ${currentPageSize};
       SELECT COUNT(id) as total FROM home;`
 
@@ -29,7 +28,6 @@ export class HomeController {
   detail(req: Request, res: Response): void | Response {
     const { id } = req.query
     if (!id) return res.json(handleResponse<string>(500, '请输入id!'))
-
     const sql = `SELECT id, title, date, content FROM home WHERE id=${id};
       SELECT id FROM home WHERE id < ${id} order by id desc limit 1;
       SELECT id FROM home WHERE id > ${id} order by id limit 1;`

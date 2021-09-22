@@ -27,7 +27,6 @@ export class UserController {
     let { page, pageSize } = req.query
     const currentPage = parseInt(page) || 1
     const currentPageSize = parseInt(pageSize) || 20
-
     const sql = `SELECT * FROM roles LIMIT ${(currentPage - 1) * currentPageSize}, ${currentPageSize};
     SELECT COUNT(id) as total FROM roles;`
 
@@ -39,12 +38,25 @@ export class UserController {
     })
   }
 
+  // 根据id获取
+  @get('/')
+  @use(checkId)
+  getOne(req: IIdBodyRequest, res: Response): void {
+    let { id } = req.query
+    const sql = `SELECT * FROM users WHERE id=?;`
+
+    connection.query(sql, [id], (err, result) => {
+      if (err) return handleError(err, res)
+      const response = result[0]
+      res.json(handleResponse<IUserResult[]>(200, response))
+    })
+  }
+
   // 新增
   @post('/')
   @use(checkCreateParams)
   create(req: ICreateRequest, res: Response): void {
     let { name, authIds } = req.body
-
     const sql = `INSERT INTO roles(name, role_ids) VALUES(?, ?);`
 
     connection.query(sql, [name, authIds], (err, result) => {
@@ -61,7 +73,6 @@ export class UserController {
   update(req: ICreateRequest & IIdBodyRequest, res: Response): void {
     let { id } = req.query
     let { name, authIds } = req.body
-
     const sql = `UPDATE roles SET name=?, authIds=? WHERE id=?;`
 
     connection.query(sql, [name, authIds, id], (err, result) => {
@@ -76,8 +87,8 @@ export class UserController {
   @use(checkId)
   del(req: IIdBodyRequest, res: Response): void {
     let { id } = req.query
-
     const sql = `DELETE FROM roles WHERE id=?;`
+  
     connection.query(sql, [id], (err, result) => {
       if (err) return handleError(err, res)
       const response = result[0]

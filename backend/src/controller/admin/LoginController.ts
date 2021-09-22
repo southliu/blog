@@ -35,7 +35,6 @@ export class LoginController {
     // console.log(req.session?.isLogin)
 
     // if (isLogin) return res.json(handleResponse<string>(200, '已登录'))
-
     const sql = `SELECT username, password FROM users WHERE username=? AND password=?`
 
     connection.query(sql, [username, password], (err, result) => {
