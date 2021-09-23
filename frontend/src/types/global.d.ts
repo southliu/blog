@@ -18,7 +18,6 @@ export interface IPageResponseData<T> extends IPublicResponse  {
   }
 }
 
-
 // 分页
 export interface IPageDate {
   page: number;
