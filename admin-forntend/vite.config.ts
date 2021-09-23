@@ -23,10 +23,28 @@ export default defineConfig({
       scss: {
         additionalData: '@import "./src/assets/css/global.scss";'
       }
+    },
+    postcss: {
+      plugins: [
+        require('autoprefixer'),
+        require('tailwindcss'),
+        require('postcss-nested'),
+        require('postcss-simple-vars'),
+        require('postcss-import')
+      ]
     }
   },
   server: {
     port: 8080,
     open: true
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'element-plus': ['element-plus']
+        }
+      }
+    }
   }
 })

@@ -35,4 +35,8 @@ declare global {
   interface IIdRequest {
     id: string | number;
   }
+
+  interface IChildrenData<T> {
+    children?: T[];
+  }
 }

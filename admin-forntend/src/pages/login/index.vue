@@ -5,7 +5,6 @@
       <el-form
         :model="formData"
         status-icon
-        :rules="rules"
         ref="formRef"
         label-width="100px"
         class="form"
@@ -75,7 +74,7 @@ export default defineComponent({
     const submitForm = (): void | false => {
       const form = unref(formRef)
       if (!form) return false
-      form.validate((valid: boolean) => {
+      form.validate((valid: boolean): void | false => {
         if (valid) {
           API.login(formData).then((response) => {
             const res = response.data

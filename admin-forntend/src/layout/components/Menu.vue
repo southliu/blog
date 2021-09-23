@@ -41,7 +41,7 @@ interface IPublicMetaData {
   iconfont: string;
 }
 
-interface IMenuDatas extends IPublicMetaData {
+interface IMenuDatas extends IPublicMetaData, IChildrenData<IMenuDatas> {
   path: string;
 }
 
