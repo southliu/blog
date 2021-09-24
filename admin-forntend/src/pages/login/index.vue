@@ -41,7 +41,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" async="async">
 import { defineComponent, reactive, ref, unref } from 'vue'
 import { Rules } from 'async-validator';
 import { useToken } from '@/hooks'
