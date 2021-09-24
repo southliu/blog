@@ -52,10 +52,6 @@ export default defineComponent({
     total: {
       type: Number,
       required: true
-    },
-    onChange: {
-      type: Function,
-      required: true
     }
   },
   emits: ['onChange'],
