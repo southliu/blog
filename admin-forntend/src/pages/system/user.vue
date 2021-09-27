@@ -1,16 +1,10 @@
 <template>
-  <el-table :data="tableData" style="width: 100%">
-    <el-table-column prop="id" label="ID" width="180"> </el-table-column>
-    <el-table-column prop="name" label="姓名" width="180"> </el-table-column>
-    <el-table-column prop="username" label="用户名"> </el-table-column>
-    <el-table-column prop="role_ids" label="角色"> </el-table-column>
-  </el-table>
-
-  <el-pagination
-    background
-    layout="prev, pager, next, sizes"
-    :page-sizes="[10, 20, 50, 100]"
-    :page-size="20"
+  <Searchs
+    :data="searchData"
+    :onSearch="onSearch"
+  />
+  <Tables
+    :data="tableData"
     :total="pageOptions.total"
     @size-change="handleSizeChange"
     @current-change="handleCurrentChange"
@@ -20,11 +14,20 @@
 <script lang="ts">
 import { defineComponent, onMounted, reactive, ref } from 'vue'
 import { IUserRequestData } from '@/types'
+import Searchs from '@/components/Search.vue'
+import Tables from '@/components/Table.vue'
 import API from '@api/system/user'
 
 export default defineComponent({
   name: 'SystemUser',
+  components: {
+    Searchs,
+    Tables
+  },
   setup() {
+    const searchData = ref([
+      { label: '用户名', key: 'username' }
+    ])
     const tableData = ref<IUserRequestData[]>([])
     const pageOptions = reactive<IPageDate>({
       page: 1,
@@ -48,6 +51,11 @@ export default defineComponent({
         }
       })
     }
+
+    // 搜索处理
+    const onSearch = (formData: any) => {
+      console.log('onSearch:', formData)
+    }
     
     const handleSizeChange = (val: number) => {
       console.log(`${val} items per page`)
@@ -58,8 +66,10 @@ export default defineComponent({
 
 
     return {
+      searchData,
       tableData,
       pageOptions,
+      onSearch,
       handleSizeChange,
       handleCurrentChange
     }
