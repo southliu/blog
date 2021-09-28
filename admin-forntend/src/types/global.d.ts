@@ -2,15 +2,17 @@ import { AxiosResponse } from "axios"
 
 export {}
 declare global {
+  type allDataType = string | number | boolean | string[] | number[]
+
   // api响应
-  export interface IResponseData<T = undefined> {
+  interface IResponseData<T = undefined> {
     code: number;
     message?: string;
     data: T
   }
   
   // 分页api响应
-  export type IPageResponseData<T> = IResponseData<{
+  type IPageResponseData<T> = IResponseData<{
     items: T;
     total: number;
   }>

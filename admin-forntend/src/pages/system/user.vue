@@ -18,6 +18,8 @@ import Searchs from '@/components/Search.vue'
 import Tables from '@/components/Table.vue'
 import API from '@api/system/user'
 
+type IQuery = Partial<IUserRequestData> & IPageDate
+
 export default defineComponent({
   name: 'SystemUser',
   components: {
@@ -40,8 +42,8 @@ export default defineComponent({
     })
 
     // 获取分页数据
-    const handleGetPage = () => {
-      API.find_page(pageOptions).then(response => {
+    const handleGetPage = (query?: IQuery) => {
+      API.find_page(query || pageOptions).then(response => {
         const res = response.data
 
         if (res.code === 200) {
@@ -53,8 +55,13 @@ export default defineComponent({
     }
 
     // 搜索处理
-    const onSearch = (formData: any) => {
-      console.log('onSearch:', formData)
+    const onSearch = (formData: IUserRequestData) => {
+      const params = {
+        ...formData,
+        page: pageOptions.page,
+        pageSize: pageOptions.pageSize
+      }
+      handleGetPage(params)
     }
     
     const handleSizeChange = (val: number) => {
@@ -63,7 +70,6 @@ export default defineComponent({
     const handleCurrentChange = (val: number) => {
       console.log(`current page: ${val}`)
     }
-
 
     return {
       searchData,
