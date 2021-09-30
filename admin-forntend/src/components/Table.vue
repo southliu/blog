@@ -1,13 +1,16 @@
 <template>
   <el-table :data="data" style="width: 100%">
-    <el-table-column prop="id" label="ID" width="180"> </el-table-column>
-    <el-table-column prop="name" label="姓名" width="180"> </el-table-column>
-    <el-table-column prop="username" label="用户名"> </el-table-column>
-    <el-table-column prop="role_ids" label="角色"> </el-table-column>
+    <el-table-column
+      v-for="item in columns"
+      :key="item.key"
+      :prop="item.key"
+      :label="item.label"
+    /> 
   </el-table>
 
   <el-pagination
     background
+    class="pagination"
     layout="prev, pager, next, sizes"
     :page-sizes="[10, 20, 50, 100]"
     :page-size="20"
@@ -18,13 +21,17 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, PropType } from 'vue'
 
 export default defineComponent({
   name: 'Table',
   props: {
     data: {
       type: Array,
+      required: true
+    },
+    columns: {
+      type: Array as PropType<ITableColumns[]>,
       required: true
     },
     total: {
@@ -44,3 +51,9 @@ export default defineComponent({
   }
 })
 </script>
+
+<style lang="scss" scoped>
+  .pagination {
+    margin-top: 10px;
+  }
+</style>

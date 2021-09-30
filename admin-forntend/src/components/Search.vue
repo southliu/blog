@@ -27,7 +27,7 @@ export default defineComponent({
       type: Array,
       required: true
     },
-    onSearch: {
+    hanleSearch: {
       type: Function,
       required: true
     }
@@ -36,7 +36,7 @@ export default defineComponent({
     const formData = ref({})
     // const formRef = ref()
     const onSubmit = (): void | false => {
-      props.onSearch(formData.value)
+      props.hanleSearch(formData.value)
     }
 
     return {

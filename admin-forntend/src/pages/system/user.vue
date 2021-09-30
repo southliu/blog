@@ -1,10 +1,11 @@
 <template>
   <Searchs
     :data="searchData"
-    :onSearch="onSearch"
+    :hanleSearch="hanleSearch"
   />
   <Tables
     :data="tableData"
+    :columns="tableColumns"
     :total="pageOptions.total"
     @size-change="handleSizeChange"
     @current-change="handleCurrentChange"
@@ -27,9 +28,13 @@ export default defineComponent({
     Tables
   },
   setup() {
-    const searchData = ref([
-      { label: '用户名', key: 'username' }
+    const tableColumns = reactive<ITableColumns[]>([
+      { label: 'ID', key: 'id', width: 180 },
+      { label: '姓名', key: 'name', width: 180, isSearch: true },
+      { label: '用户名', key: 'username', width: 180, isSearch: true },
+      { label: '角色', key: 'role_ids', width: 180 },
     ])
+    const searchData = ref<ISearchData[]>([])
     const tableData = ref<IUserRequestData[]>([])
     const pageOptions = reactive<IPageDate>({
       page: 1,
@@ -39,7 +44,20 @@ export default defineComponent({
 
     onMounted(() => {
       handleGetPage()
+      handleGetSearch(tableColumns)
     })
+
+    // 获取搜索数据
+    const handleGetSearch = (columns: ITableColumns[]) => {
+      const data: ISearchData[] = []
+      columns.forEach(item => {
+        if (item.isSearch) {
+          const { label, key } = item
+          data.push({ label, key })
+        }
+      })
+      searchData.value = data
+    }
 
     // 获取分页数据
     const handleGetPage = (query?: IQuery) => {
@@ -55,7 +73,7 @@ export default defineComponent({
     }
 
     // 搜索处理
-    const onSearch = (formData: IUserRequestData) => {
+    const hanleSearch = (formData: IUserRequestData) => {
       const params = {
         ...formData,
         page: pageOptions.page,
@@ -74,8 +92,9 @@ export default defineComponent({
     return {
       searchData,
       tableData,
+      tableColumns,
       pageOptions,
-      onSearch,
+      hanleSearch,
       handleSizeChange,
       handleCurrentChange
     }

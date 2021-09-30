@@ -38,7 +38,23 @@ declare global {
     id: string | number;
   }
 
+  // 搜索数据
+  interface ISearchData {
+    label: string;
+    key: string;
+  }
+  
+  // 子数据
   interface IChildrenData<T> {
     children?: T[];
+  }
+
+  // 表格数据
+  interface ITableColumns {
+    label: string;
+    key: string;
+    width: number;
+    isSearch?: boolean;
+    searchWidth?: number;
   }
 }
