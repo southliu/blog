@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
-import { IIdBodyRequest, IPageDate, IUserResult, MESSAGE_SUCCESS } from "../../types";
+import { IUserResult, MESSAGE_SUCCESS } from "../../types";
 import connection from "../../utils/connection";
-import { checkId, handleError, handleResponse } from "../../utils/utils";
+import { checkId, handleError, handleResponse, handleFuzzySearch } from "../../utils/utils";
 import { get, post, patch, del, controller, use } from '../../decorator';
 
 interface ICreateRequest extends Request {
@@ -9,7 +9,7 @@ interface ICreateRequest extends Request {
     name: string;
     username: string;
     password: string;
-    roleIds: string[] | number[]
+    role_ids: string[] | number[]
   }
 }
 
@@ -18,12 +18,12 @@ const sqlSelect: string[] = ['id', 'username', 'role_ids', 'name']
 
 // 检查新增传值
 const checkCreateParams = (req: Request, res: Response, next: NextFunction): void | Response => {
-  let { name, username, password, roleIds } = req.body
+  let { name, username, password, role_ids } = req.body
 
   if (!name) return res.json(handleResponse<string>(500, '请输入名称!'))
   if (!username) return res.json(handleResponse<string>(500, '请输入用户名!'))
   if (!password) return res.json(handleResponse<string>(500, '请输入密码!'))
-  if (!roleIds) return res.json(handleResponse<string>(500, '请选择角色!'))
+  if (!role_ids) return res.json(handleResponse<string>(500, '请选择角色!'))
   next();
 };
 
@@ -35,10 +35,11 @@ export class UserController {
     let { page, pageSize } = req.query
     const currentPage = parseInt(page) || 1
     const currentPageSize = parseInt(pageSize) || 20
-    const sql = `SELECT ${sqlSelect.join(',')} FROM users LIMIT ${(currentPage - 1) * currentPageSize}, ${currentPageSize};
+    const { searchKeys, searchDatas } = handleFuzzySearch(req.query, sqlSelect)
+    const sql = `SELECT ${sqlSelect.join(',')} FROM users ${searchKeys} LIMIT ${(currentPage - 1) * currentPageSize}, ${currentPageSize};
     SELECT COUNT(id) as total FROM users;`
 
-    connection.query(sql, (err, result) => {
+    connection.query(sql, [...searchDatas], (err, result) => {
       if (err) return handleError(err, res)
       const items = result[0]
       const response = { items, ...result[1][0] }
@@ -64,10 +65,10 @@ export class UserController {
   @post('/')
   @use(checkCreateParams)
   create(req: ICreateRequest, res: Response): void {
-    let { name, username, password, roleIds } = req.body
+    let { name, username, password, role_ids } = req.body
     const sql = `INSERT INTO users(name, username, password, role_ids) VALUES(?, ?, ?, ?);`
 
-    connection.query(sql, [name, username, password, roleIds], (err, result) => {
+    connection.query(sql, [name, username, password, role_ids], (err, result) => {
       if (err) return handleError(err, res)
       const response = result[0]
       res.json(handleResponse<IUserResult[]>(200, response, MESSAGE_SUCCESS.create_success))
@@ -80,10 +81,10 @@ export class UserController {
   @use(checkId)
   update(req: ICreateRequest & IIdBodyRequest, res: Response): void {
     let { id } = req.query
-    let { name, username, password, roleIds } = req.body
+    let { name, username, password, role_ids } = req.body
     const sql = `UPDATE users SET name=?, username=?, password=?, role_ids=? WHERE id=?;`
 
-    connection.query(sql, [name, username, password, roleIds, id], (err, result) => {
+    connection.query(sql, [name, username, password, role_ids, id], (err, result) => {
       if (err) return handleError(err, res)
       const response = result[0]
       res.json(handleResponse<IUserResult[]>(200, response, MESSAGE_SUCCESS.update_success))

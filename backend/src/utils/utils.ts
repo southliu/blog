@@ -1,7 +1,6 @@
 import moment from "moment"
 import { NextFunction, Response } from "express"
 import { MysqlError } from "mysql"
-import { IIdBodyRequest } from "../types"
 
 type IResult<T> = {
   code: number;
@@ -41,3 +40,23 @@ export const checkId = (req: IIdBodyRequest, res: Response, next: NextFunction):
     next();
   }
 };
+
+// 搜索条件处理
+interface IFuzzySearchQuery {
+  [key: string]: string | undefined
+}
+interface IFuzzySearchResult {
+  searchKeys: string;
+  searchDatas: string[];
+}
+export const handleFuzzySearch = (query: IFuzzySearchQuery, sqlSelect: string[]): IFuzzySearchResult => {
+  let searchKeys: string = ''
+  const searchDatas: string[] = []
+  sqlSelect && sqlSelect.forEach(item => {
+    if (query[item]) {
+      searchKeys += searchKeys.length === 0 ? `WHERE ${item} LIKE ?` : ` AND ${item} LIKE ?`
+      searchDatas.push(`%${query[item]}%`)
+    }
+  })
+  return { searchKeys, searchDatas }
+}
