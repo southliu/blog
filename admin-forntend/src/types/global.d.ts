@@ -43,6 +43,12 @@ declare global {
     label: string;
     key: string;
   }
+
+  // 新增数据
+  interface ICreateData {
+    label: string;
+    key: string;
+  }
   
   // 子数据
   interface IChildrenData<T> {
@@ -56,5 +62,6 @@ declare global {
     width: number;
     isSearch?: boolean;
     searchWidth?: number;
+    isNotCreat?: boolean;
   }
 }

@@ -1,7 +1,7 @@
 <template>
   <Searchs
     :data="searchData"
-    :hanleSearch="hanleSearch"
+    :handleSearch="handleSearch"
   />
   <Tables
     :data="tableData"
@@ -72,7 +72,7 @@ export default defineComponent({
     }
 
     // 搜索处理
-    const hanleSearch = (formData: IRoleRequestData) => {
+    const handleSearch = (formData: IRoleRequestData) => {
       const params = {
         ...formData,
         page: pageOptions.page,
@@ -93,7 +93,7 @@ export default defineComponent({
       tableData,
       tableColumns,
       pageOptions,
-      hanleSearch,
+      handleSearch,
       handleSizeChange,
       handleCurrentChange
     }

@@ -17,3 +17,26 @@ export function handleRecursion<T, Y extends IChildrenData<Y>>(data: Y[], callba
   return result
 }
 
+// 获取搜索数据
+export const handleGetSearch = (columns: ITableColumns[]) => {
+  const data: ISearchData[] = []
+  columns.forEach(item => {
+    if (item.isSearch) {
+      const { label, key } = item
+      data.push({ label, key })
+    }
+  })
+  return data
+}
+
+// 获取新增数据
+export const handleGetCreate = (columns: ITableColumns[]) => {
+  const data: ICreateData[] = []
+  columns.forEach(item => {
+    if (!item.isNotCreat) {
+      const { label, key } = item
+      data.push({ label, key })
+    }
+  })
+  return data
+}

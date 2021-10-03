@@ -14,11 +14,14 @@
     <el-form-item>
       <el-button type="primary" @click="onSubmit">搜索</el-button>
     </el-form-item>
+    <el-form-item>
+      <el-button type="primary" @click="handleCreate(true)">新增</el-button>
+    </el-form-item>
   </el-form>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, onMounted, ref } from 'vue'
 
 export default defineComponent({
   name: 'Search',
@@ -27,19 +30,31 @@ export default defineComponent({
       type: Array,
       required: true
     },
-    hanleSearch: {
+    handleSearch: {
       type: Function,
       required: true
+    },
+    handleCreate: {
+      type: Function,
+      required: false
     }
   },
   setup(props) {
+    const { handleCreate, handleSearch } = props
     const formData = ref({})
-    // const formRef = ref()
+    const isCraete = ref(false)
+
+    onMounted(() => {
+      isCraete.value = handleCreate ? true : false
+    })
+
+    // 搜索
     const onSubmit = (): void | false => {
-      props.hanleSearch(formData.value)
+      handleSearch(formData.value)
     }
 
     return {
+      isCraete,
       formData,
       onSubmit
     }

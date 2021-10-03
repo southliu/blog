@@ -1,11 +1,11 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
-import { ElMessage, ElLoading } from 'element-plus'
+import { ElMessage } from 'element-plus'
 import { useToken } from '@/hooks'
 
 const prefixUrl = (import.meta.env.VITE_BASE_API as string)
 
 // loading
-let loading: { close: () => void; };
+// let loading: { close: () => void; };
 
 // 创建axios实例
 const service = axios.create({
@@ -15,7 +15,7 @@ const service = axios.create({
 
 // 异常处理
 const handleError = (error: string): Promise<string> => {
-  loading.close()
+  // loading.close()
   console.log('错误信息:', error)
   ElMessage.closeAll()
   ElMessage({ type: 'error', message: error || '服务器错误!' })
@@ -26,12 +26,12 @@ const handleError = (error: string): Promise<string> => {
 service.interceptors.request.use(
   (config: AxiosRequestConfig) => {
     // 开启loading
-    loading = ElLoading.service({
-      lock: true,
-      text: '加载中...',
-      spinner: 'el-icon-loading',
-      background: 'rgba(0, 0, 0, 0.2)'
-    })
+    // loading = ElLoading.service({
+    //   lock: true,
+    //   text: '加载中...',
+    //   spinner: 'el-icon-loading',
+    //   background: 'rgba(0, 0, 0, 0.2)'
+    // })
 
     /**
      * TODO: 添加token会提示跨域问题
@@ -47,7 +47,7 @@ service.interceptors.request.use(
 // 响应拦截
 service.interceptors.response.use(
   (response: AxiosResponse<IResponseData>) => {
-    loading.close()
+    // loading.close()
     const res = response.data
     if (res?.code === 601) {
       useToken(null, true)

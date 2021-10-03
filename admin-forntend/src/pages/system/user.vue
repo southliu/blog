@@ -1,31 +1,40 @@
 <template>
-  <Searchs
+  <common-search
     :data="searchData"
-    :hanleSearch="hanleSearch"
+    :handleSearch="handleSearch"
+    :handleCreate="handleCreatVisible"
   />
-  <Tables
+  <common-table
     :data="tableData"
     :columns="tableColumns"
     :total="pageOptions.total"
-    @size-change="handleSizeChange"
-    @current-change="handleCurrentChange"
+    :size-change="handleSizeChange"
+    :current-change="handleCurrentChange"
+  />
+  <common-create
+    :data="creatData"
+    :isVisible="isCreateVisible"
+    :handleClose="handleCreatVisible"
   />
 </template>
 
 <script lang="ts">
 import { defineComponent, onMounted, reactive, ref } from 'vue'
 import { IUserRequestData } from '@/types'
-import Searchs from '@/components/Search.vue'
-import Tables from '@/components/Table.vue'
+import CommonSearch from '@/components/Search.vue'
+import CommonCreate from '@/components/Create.vue'
+import CommonTable from '@/components/Table.vue'
 import API from '@api/system/user'
+import { handleGetCreate, handleGetSearch } from '@/utils/utils'
 
 type IQuery = Partial<IUserRequestData> & IPageDate
 
 export default defineComponent({
   name: 'SystemUser',
   components: {
-    Searchs,
-    Tables
+    CommonSearch,
+    CommonCreate,
+    CommonTable
   },
   setup() {
     const tableColumns = reactive<ITableColumns[]>([
@@ -35,7 +44,9 @@ export default defineComponent({
       { label: '角色', key: 'role_ids', width: 180 },
     ])
     const searchData = ref<ISearchData[]>([])
+    const creatData = ref<ICreateData[]>([])
     const tableData = ref<IUserRequestData[]>([])
+    const isCreateVisible = ref(false)
     const pageOptions = reactive<IPageDate>({
       page: 1,
       pageSize: 20,
@@ -44,20 +55,9 @@ export default defineComponent({
 
     onMounted(() => {
       handleGetPage()
-      handleGetSearch(tableColumns)
+      searchData.value = handleGetSearch(tableColumns)
+      creatData.value = handleGetCreate(tableColumns)
     })
-
-    // 获取搜索数据
-    const handleGetSearch = (columns: ITableColumns[]) => {
-      const data: ISearchData[] = []
-      columns.forEach(item => {
-        if (item.isSearch) {
-          const { label, key } = item
-          data.push({ label, key })
-        }
-      })
-      searchData.value = data
-    }
 
     // 获取分页数据
     const handleGetPage = (query?: IQuery) => {
@@ -73,7 +73,7 @@ export default defineComponent({
     }
 
     // 搜索处理
-    const hanleSearch = (formData: IUserRequestData) => {
+    const handleSearch = (formData: IUserRequestData) => {
       const params = {
         ...formData,
         page: pageOptions.page,
@@ -81,7 +81,12 @@ export default defineComponent({
       }
       handleGetPage(params)
     }
-    
+
+    // 开关搜索
+    const handleCreatVisible = (isVisible: boolean = false) => {
+      isCreateVisible.value = isVisible
+    }
+
     const handleSizeChange = (val: number) => {
       console.log(`${val} items per page`)
     }
@@ -90,11 +95,14 @@ export default defineComponent({
     }
 
     return {
+      isCreateVisible,
+      creatData,
       searchData,
       tableData,
       tableColumns,
       pageOptions,
-      hanleSearch,
+      handleSearch,
+      handleCreatVisible,
       handleSizeChange,
       handleCurrentChange
     }
