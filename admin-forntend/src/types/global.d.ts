@@ -37,6 +37,11 @@ declare global {
   interface IIdRequest {
     id: string | number;
   }
+  
+  // 子数据
+  interface IChildrenData<T> {
+    children?: T[];
+  }
 
   // 搜索数据
   interface ISearchData {
@@ -45,15 +50,8 @@ declare global {
   }
 
   // 新增数据
-  interface ICreateData {
-    label: string;
-    key: string;
-  }
-  
-  // 子数据
-  interface IChildrenData<T> {
-    children?: T[];
-  }
+type ICreateKeys = 'label' | 'key' | 'isRequired'
+type ICreateData = Pick<ITableColumns, ICreateKeys>
 
   // 表格数据
   interface ITableColumns {
@@ -63,5 +61,6 @@ declare global {
     isSearch?: boolean;
     searchWidth?: number;
     isNotCreat?: boolean;
+    isRequired?: boolean;
   }
 }

@@ -3,13 +3,17 @@
     v-model="isVisible"
     :title="updateId ? '编辑' : '新增'"
     width="30%"
+    :close-on-click-modal="false"
+    @close="handleClose(false)"
   >
     <el-form
       :model="formData"
       class="box"
+      :label-width="labelWidth || 120"
     >
       <el-form-item
         v-for="item in data"
+        :required="item.isRequired"
         :key="item.key"
         :label="item.label"
       >
@@ -38,6 +42,10 @@ export default defineComponent({
     isVisible: {
       type: Boolean,
       required: true
+    },
+    labelWidth: {
+      type: Number,
+      required: false
     },
     handleClose: {
       type: Function as PropType<(isVisible: boolean) => void>,

@@ -37,16 +37,16 @@ export default defineComponent({
     CommonTable
   },
   setup() {
-    const tableColumns = reactive<ITableColumns[]>([
-      { label: 'ID', key: 'id', width: 180 },
-      { label: '姓名', key: 'name', width: 180, isSearch: true },
-      { label: '用户名', key: 'username', width: 180, isSearch: true },
-      { label: '角色', key: 'role_ids', width: 180 },
-    ])
     const searchData = ref<ISearchData[]>([])
     const creatData = ref<ICreateData[]>([])
     const tableData = ref<IUserRequestData[]>([])
     const isCreateVisible = ref(false)
+    const tableColumns = reactive<ITableColumns[]>([
+      { label: 'ID', key: 'id', width: 180 },
+      { label: '姓名', key: 'name', width: 180, isSearch: true, isRequired: true },
+      { label: '用户名', key: 'username', width: 180, isSearch: true, isRequired: true },
+      { label: '角色', key: 'role_ids', width: 180 },
+    ])
     const pageOptions = reactive<IPageDate>({
       page: 1,
       pageSize: 20,

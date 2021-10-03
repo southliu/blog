@@ -14,7 +14,7 @@
     <el-form-item>
       <el-button type="primary" @click="onSubmit">搜索</el-button>
     </el-form-item>
-    <el-form-item>
+    <el-form-item v-if="isCraete">
       <el-button type="primary" @click="handleCreate(true)">新增</el-button>
     </el-form-item>
   </el-form>
@@ -45,7 +45,7 @@ export default defineComponent({
     const isCraete = ref(false)
 
     onMounted(() => {
-      isCraete.value = handleCreate ? true : false
+      isCraete.value = !!handleCreate
     })
 
     // 搜索

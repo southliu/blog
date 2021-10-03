@@ -34,8 +34,8 @@ export const handleGetCreate = (columns: ITableColumns[]) => {
   const data: ICreateData[] = []
   columns.forEach(item => {
     if (!item.isNotCreat) {
-      const { label, key } = item
-      data.push({ label, key })
+      const { label, key, isRequired } = item
+      data.push({ label, key, isRequired })
     }
   })
   return data
