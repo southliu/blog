@@ -52,6 +52,7 @@ export class UserController {
   @use(checkId)
   getOne(req: IIdBodyRequest, res: Response): void {
     let { id } = req.query
+    const sqlSelect: string[] = ['id', 'username', 'password', 'role_ids', 'name']
     const sql = `SELECT ${sqlSelect.join(',')} FROM users WHERE id=?;`
 
     connection.query(sql, [id], (err, result) => {
