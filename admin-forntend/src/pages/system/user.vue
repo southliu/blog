@@ -2,7 +2,7 @@
   <common-search
     :data="searchData"
     :handleSearch="handleSearch"
-    :handleCreate="handleCreatVisible"
+    :handleCreate="handleCreateVisible"
   />
   <common-table
     :data="tableData"
@@ -14,7 +14,8 @@
   <common-create
     :data="creatData"
     :isVisible="isCreateVisible"
-    :handleClose="handleCreatVisible"
+    :handleClose="handleCreateVisible"
+    :handleSubmit="handleCreateSubmit"
   />
 </template>
 
@@ -26,6 +27,7 @@ import CommonCreate from '@/components/Create.vue'
 import CommonTable from '@/components/Table.vue'
 import API from '@api/system/user'
 import { handleGetCreate, handleGetSearch } from '@/utils/utils'
+import { ElMessage } from 'element-plus'
 
 type IQuery = Partial<IUserRequestData> & IPageDate
 
@@ -42,10 +44,11 @@ export default defineComponent({
     const tableData = ref<IUserRequestData[]>([])
     const isCreateVisible = ref(false)
     const tableColumns = reactive<ITableColumns[]>([
-      { label: 'ID', key: 'id', width: 180 },
+      { label: 'ID', key: 'id', width: 180, isNotCreat: true },
       { label: '姓名', key: 'name', width: 180, isSearch: true, isRequired: true },
       { label: '用户名', key: 'username', width: 180, isSearch: true, isRequired: true },
-      { label: '角色', key: 'role_ids', width: 180 },
+      { label: '密码', key: 'password', isNotShow: true, isRequired: true },
+      { label: '角色', key: 'role_ids', width: 180, isRequired: true },
     ])
     const pageOptions = reactive<IPageDate>({
       page: 1,
@@ -60,7 +63,7 @@ export default defineComponent({
     })
 
     // 获取分页数据
-    const handleGetPage = (query?: IQuery) => {
+    const handleGetPage = (query?: IQuery): void => {
       API.find_page(query || pageOptions).then(response => {
         const res = response.data
 
@@ -73,7 +76,7 @@ export default defineComponent({
     }
 
     // 搜索处理
-    const handleSearch = (formData: IUserRequestData) => {
+    const handleSearch = (formData: IUserRequestData): void => {
       const params = {
         ...formData,
         page: pageOptions.page,
@@ -83,14 +86,28 @@ export default defineComponent({
     }
 
     // 开关搜索
-    const handleCreatVisible = (isVisible: boolean = false) => {
+    const handleCreateVisible = (isVisible: boolean = false): void => {
       isCreateVisible.value = isVisible
     }
 
-    const handleSizeChange = (val: number) => {
+    // 提交新增
+    const handleCreateSubmit = (formData: IUserRequestData): void => {
+      console.log('handleCreateSubmit:', formData)
+      API.create(formData).then(response => {
+        const res = response.data
+
+        if (res.code === 200) {
+          ElMessage({ type: 'success', message: '新增成功!' })
+          handleGetPage()
+          handleCreateVisible(false)
+        }
+      })
+    }
+
+    const handleSizeChange = (val: number): void => {
       console.log(`${val} items per page`)
     }
-    const handleCurrentChange = (val: number) => {
+    const handleCurrentChange = (val: number): void => {
       console.log(`current page: ${val}`)
     }
 
@@ -102,7 +119,8 @@ export default defineComponent({
       tableColumns,
       pageOptions,
       handleSearch,
-      handleCreatVisible,
+      handleCreateVisible,
+      handleCreateSubmit,
       handleSizeChange,
       handleCurrentChange
     }

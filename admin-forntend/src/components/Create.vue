@@ -7,30 +7,32 @@
     @close="handleClose(false)"
   >
     <el-form
-      :model="formData"
+      ref="formRef"
       class="box"
+      status-icon
+      :model="formData"
       :label-width="labelWidth || 120"
     >
       <el-form-item
         v-for="item in data"
-        :required="item.isRequired"
         :key="item.key"
         :label="item.label"
+        :prop="item.key"
+        :required="!!item.isRequired"
+        :rules="[{ required: !!item.isRequired, message: `请输入${item.label}`, trigger: 'blur' }]"
       >
         <el-input placeholder="请输入" v-model="formData[item.key]"></el-input>
       </el-form-item>
     </el-form>
     <template #footer>
-      <span class="dialog-footer">
-        <el-button @click="handleClose(false)">关闭</el-button>
-        <el-button type="primary" @click="onSubmit">确认</el-button>
-      </span>
+      <el-button @click="handleClose(false)">关闭</el-button>
+      <el-button type="primary" @click="onSubmit()">确认</el-button>
     </template>
   </el-dialog>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref } from 'vue'
+import { defineComponent, PropType, reactive, ref, unref } from 'vue'
 
 export default defineComponent({
   name: 'Create',
@@ -47,22 +49,37 @@ export default defineComponent({
       type: Number,
       required: false
     },
+    handleSubmit: {
+      type: Function as PropType<(formData: unknown) => void>,
+      required: true
+    },
     handleClose: {
       type: Function as PropType<(isVisible: boolean) => void>,
       required: true
     }
   },
-  setup() {
-    const formData = ref({})
+  setup(props) {
+    const { handleSubmit } = props
+    const formRef = ref()
+    const formData = reactive({})
     const updateId = ref<string | number>('')
-
-    // 提交
-    const onSubmit = () => {
-      // formData.value
-      console.log('onSubmit:', formData.value)
+    
+    // 提交事件
+    const onSubmit = (): void | false => {
+      console.log('onSubmit:', formData)
+      const form = unref(formRef)
+      if (!form) return false
+      form.validate((valid: boolean): void | false => {
+        if (valid) {
+          handleSubmit(formData)
+        } else {
+          return false
+        }
+      })
     }
 
     return {
+      formRef,
       formData,
       updateId,
       onSubmit

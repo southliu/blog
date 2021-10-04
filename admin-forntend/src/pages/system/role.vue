@@ -29,7 +29,7 @@ export default defineComponent({
   },
   setup() {
     const tableColumns = reactive<ITableColumns[]>([
-      { label: 'ID', key: 'id', width: 180 },
+      { label: 'ID', key: 'id', width: 180, isNotCreat: true },
       { label: '姓名', key: 'name', width: 180, isSearch: true },
       { label: '用户', key: 'auth_ids', width: 180 },
     ])

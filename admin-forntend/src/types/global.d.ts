@@ -57,7 +57,8 @@ type ICreateData = Pick<ITableColumns, ICreateKeys>
   interface ITableColumns {
     label: string;
     key: string;
-    width: number;
+    width?: number;
+    isNotShow?: boolean;
     isSearch?: boolean;
     searchWidth?: number;
     isNotCreat?: boolean;

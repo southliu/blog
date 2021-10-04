@@ -1,11 +1,15 @@
 <template>
   <el-table :data="data" style="width: 100%">
-    <el-table-column
+    <template
       v-for="item in columns"
       :key="item.key"
-      :prop="item.key"
-      :label="item.label"
-    /> 
+    >
+      <el-table-column
+        v-if="!item.isNotShow"
+        :prop="item.key"
+        :label="item.label"
+      />
+    </template>
   </el-table>
 
   <el-pagination
