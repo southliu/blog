@@ -20,10 +20,10 @@ const sqlSelect: string[] = ['id', 'username', 'role_ids', 'name']
 const checkCreateParams = (req: Request, res: Response, next: NextFunction): void | Response => {
   let { name, username, password, role_ids } = req.body
 
-  if (!name) return res.json(handleResponse<string>(500, '请输入名称!'))
-  if (!username) return res.json(handleResponse<string>(500, '请输入用户名!'))
-  if (!password) return res.json(handleResponse<string>(500, '请输入密码!'))
-  if (!role_ids) return res.json(handleResponse<string>(500, '请选择角色!'))
+  if (!name) return res.json(handleResponse<null>(500, null, '请输入名称!'))
+  if (!username) return res.json(handleResponse<null>(500, null, '请输入用户名!'))
+  if (!password) return res.json(handleResponse<null>(500, null, '请输入密码!'))
+  if (!role_ids) return res.json(handleResponse<null>(500, null, '请选择角色!'))
   next();
 };
 
