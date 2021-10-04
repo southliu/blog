@@ -10,6 +10,7 @@
         :label="item.label"
       />
     </template>
+    <slot name="options"></slot>
   </el-table>
 
   <el-pagination

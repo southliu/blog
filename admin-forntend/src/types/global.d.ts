@@ -49,9 +49,15 @@ declare global {
     key: string;
   }
 
+  // 新增对话框数据
+  interface ICreateDialog {
+    isCreateVisible: boolean,
+    updateId: string | number
+  }
+
   // 新增数据
-type ICreateKeys = 'label' | 'key' | 'isRequired'
-type ICreateData = Pick<ITableColumns, ICreateKeys>
+  type ICreateKeys = 'label' | 'key' | 'isRequired'
+  type ICreateData = Pick<ITableColumns, ICreateKeys>
 
   // 表格数据
   interface ITableColumns {

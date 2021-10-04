@@ -32,7 +32,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, reactive, ref, unref } from 'vue'
+import { defineComponent, PropType, ref, unref } from 'vue'
 
 export default defineComponent({
   name: 'Create',
@@ -40,6 +40,14 @@ export default defineComponent({
     data: {
       type: Array as PropType<ICreateData[]>,
       required: true
+    },
+    formData: {
+      type: Array,
+      required: true
+    },
+    updateId: {
+      type: String || Number,
+      required: false
     },
     isVisible: {
       type: Boolean,
@@ -59,10 +67,8 @@ export default defineComponent({
     }
   },
   setup(props) {
-    const { handleSubmit } = props
+    const { formData, handleSubmit } = props
     const formRef = ref()
-    const formData = reactive({})
-    const updateId = ref<string | number>('')
     
     // 提交事件
     const onSubmit = (): void | false => {
@@ -81,7 +87,6 @@ export default defineComponent({
     return {
       formRef,
       formData,
-      updateId,
       onSubmit
     }
   }
