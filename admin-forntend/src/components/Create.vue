@@ -2,7 +2,7 @@
   <el-dialog
     v-model="isVisible"
     :title="updateId ? '编辑' : '新增'"
-    width="30%"
+    :width="width || 550"
     :close-on-click-modal="false"
     @close="handleClose(false)"
   >
@@ -52,6 +52,10 @@ export default defineComponent({
     isVisible: {
       type: Boolean,
       required: true
+    },
+    width: {
+      type: Number,
+      required: false
     },
     labelWidth: {
       type: Number,
