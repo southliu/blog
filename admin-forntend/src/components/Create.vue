@@ -32,13 +32,18 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref, unref } from 'vue'
+import { ElLoading } from 'element-plus'
+import { defineComponent, PropType, ref, unref, watch } from 'vue'
 
 export default defineComponent({
   name: 'Create',
   props: {
     data: {
       type: Array as PropType<ICreateData[]>,
+      required: true
+    },
+    isLoading: {
+      type: Boolean,
       required: true
     },
     formData: {
@@ -71,8 +76,18 @@ export default defineComponent({
     }
   },
   setup(props) {
-    const { formData, handleSubmit } = props
+    const { isLoading, formData, handleSubmit } = props
     const formRef = ref()
+
+    watch(() => isLoading, () => {
+      console.log('isLoading:', isLoading)
+      ElLoading.service({
+        lock: !!isLoading,
+        text: '加载中...',
+        spinner: 'el-icon-loading',
+        background: 'rgba(0, 0, 0, 0.2)'
+      })
+    })
     
     // 提交事件
     const onSubmit = (): void | false => {

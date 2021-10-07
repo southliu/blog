@@ -31,6 +31,7 @@
   <common-create
     :data="creatData"
     :formData="formData"
+    :isLoading="isLoading"
     :updateId="createDialog.updateId"
     :isVisible="createDialog.isCreateVisible"
     :handleClose="handleCreateVisible"
@@ -127,6 +128,7 @@ export default defineComponent({
         const res = response.data
 
         if (res.code === 200) {
+          console.log("res.data:", res.data)
           formData.value = res.data
         }
       }).finally(() =>  isLoading.value = false)
