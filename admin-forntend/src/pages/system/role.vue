@@ -35,7 +35,7 @@ export default defineComponent({
     ])
     const searchData = ref<ISearchData[]>([])
     const tableData = ref<IRoleRequestData[]>([])
-    const pageOptions = reactive<IPageDate>({
+    const pageOptions = reactive<Required<IPageDate>>({
       page: 1,
       pageSize: 20,
       total: 0

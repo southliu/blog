@@ -21,7 +21,7 @@
         :required="!!item.isRequired"
         :rules="[{ required: !!item.isRequired, message: `请输入${item.label}`, trigger: 'blur' }]"
       >
-        <el-input placeholder="请输入" v-model="formData[item.key]"></el-input>
+        <el-input placeholder="请输入" v-model="formData[item.key]" />
       </el-form-item>
     </el-form>
     <template #footer>
@@ -67,7 +67,7 @@ export default defineComponent({
       required: false
     },
     handleSubmit: {
-      type: Function as PropType<(formData: unknown) => void>,
+      type: Function,
       required: true
     },
     handleClose: {
@@ -78,8 +78,12 @@ export default defineComponent({
   setup(props) {
     const { isLoading, formData, handleSubmit } = props
     const formRef = ref()
+    const isFormLoading = ref(false)
+
+    console.log('props:', props)
 
     watch(() => isLoading, () => {
+      isFormLoading.value = isLoading
       console.log('isLoading:', isLoading)
       ElLoading.service({
         lock: !!isLoading,
@@ -104,6 +108,7 @@ export default defineComponent({
     }
 
     return {
+      isFormLoading,
       formRef,
       formData,
       onSubmit

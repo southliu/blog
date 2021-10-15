@@ -21,13 +21,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from 'vue'
+import { defineComponent, onMounted, PropType, ref } from 'vue'
 
 export default defineComponent({
   name: 'Search',
   props: {
     data: {
-      type: Array,
+      type: Array as PropType<{ [key: string]: string | number }[]>,
       required: true
     },
     handleSearch: {

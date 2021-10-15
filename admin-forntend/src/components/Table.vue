@@ -32,7 +32,7 @@ export default defineComponent({
   name: 'Table',
   props: {
     data: {
-      type: Array,
+      type: Array as PropType<{ [key: string]: allDataType }[]>,
       required: true
     },
     columns: {
