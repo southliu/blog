@@ -52,7 +52,7 @@ declare global {
   // 新增对话框数据
   interface ICreateDialog {
     isCreateVisible: boolean,
-    updateId: string | number
+    updateId: number
   }
 
   // 新增数据
