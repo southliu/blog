@@ -69,9 +69,9 @@ export default defineComponent({
     const formData = ref<Partial<IUserRequestData>>({})
     const createDialog = reactive<ICreateDialog>({
       isCreateVisible: false,
-      updateId: ''
+      updateId: 0
     })
-    const pageOptions = reactive<IPageDate>({
+    const pageOptions = reactive<Required<IPageDate>>({
       page: 1,
       pageSize: 20,
       total: 0

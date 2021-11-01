@@ -47,11 +47,11 @@ export default defineComponent({
       required: true
     },
     formData: {
-      type: Array,
+      type: Array as PropType<ICreateData[]>,
       required: true
     },
     updateId: {
-      type: String || Number,
+      type: Number,
       required: false
     },
     isVisible: {
