@@ -2,15 +2,15 @@
 Navicat MySQL Data Transfer
 
 Source Server         : localhost
-Source Server Version : 80026
+Source Server Version : 50726
 Source Host           : localhost:3306
 Source Database       : blog
 
 Target Server Type    : MYSQL
-Target Server Version : 80026
+Target Server Version : 50726
 File Encoding         : 65001
 
-Date: 2021-09-06 23:15:13
+Date: 2021-11-01 11:38:32
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -20,14 +20,14 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `blogs`;
 CREATE TABLE `blogs` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `image` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `describe` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `describe` varchar(255) NOT NULL,
   `date` date NOT NULL,
-  `content` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `content` longtext NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of blogs
@@ -41,14 +41,14 @@ INSERT INTO `blogs` VALUES ('3', '夏日结束前的逃亡|日照之旅3', 'http
 -- ----------------------------
 DROP TABLE IF EXISTS `home`;
 CREATE TABLE `home` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `image` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `describe` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `describe` varchar(255) NOT NULL,
   `date` date NOT NULL,
-  `content` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `content` longtext NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of home
@@ -62,11 +62,11 @@ INSERT INTO `home` VALUES ('3', '夏日结束前的逃亡|日照之旅3', 'https
 -- ----------------------------
 DROP TABLE IF EXISTS `roles`;
 CREATE TABLE `roles` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `auth_ids` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of roles
@@ -77,14 +77,15 @@ CREATE TABLE `roles` (
 -- ----------------------------
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `user_id` int NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
+  `role_ids` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of users
 -- ----------------------------
+INSERT INTO `users` VALUES ('1', 'test2', 'test3', '[1]', 'test1');
