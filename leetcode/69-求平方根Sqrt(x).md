@@ -16,6 +16,7 @@
 ### 解题思路：
 1. 二分查询法，创建左右变量
 2. left小于等于right循环，求中间值，中间值的方小于等于值，left为中间值+1，否则right等于中间值减1
+
 ```
 function mySqrt(x: number): number {
   let left = 0
