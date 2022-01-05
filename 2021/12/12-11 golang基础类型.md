@@ -7,7 +7,7 @@ stringVal := "Hello World"
 ```
 **注意：直接使用单引号('')会报错**
 <img src="./images/go_string_error.jpg">
-单引号('')应该写在双引号内：stringVal := "Hello **'South'**"
+### 单引号('')应该写在双引号内：stringVal := "Hello **'South'**"
 
 ### bool布尔型
 bool布尔型只有两个值：true和false
