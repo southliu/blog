@@ -1,4 +1,4 @@
-# 2021-11-09 CLI创建页面初步设计
+# CLI创建页面初步设计
 ### 初步设计生成页面指令，根据create-xxx-page判断是哪种框架
 ```
 south create-react-page page-name
@@ -17,7 +17,7 @@ south creat-vue-page page-name
 ```
 当'新增-弹窗'和'新增-跳转'同时勾选时，会被'新增-弹窗'覆盖
 ```
-# 2021 11-11 实现CLI提示功能
+# 实现CLI提示功能
 ### 在<kbd>lib/GeneratorPage</kbd>中添加询问功能方法
 ```
 async handleFunctions() {

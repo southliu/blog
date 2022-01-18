@@ -1,4 +1,4 @@
-# 2021-11-05 使用React+Threejs开发一个三维地球
+# 使用React+Threejs开发一个三维地球
 ### 安装React
 ```
 npx create-react-app project-name --tmeplate typescript

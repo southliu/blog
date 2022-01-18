@@ -1,4 +1,4 @@
-# 2021-11-02 初识Three.js
+# 初识Three.js
 ## Three.js是什么？
 ```
 Three.js是基于原生WebGL封装运行的三维引擎，市面上使用最广泛的三维可视化框架。
@@ -122,7 +122,7 @@ Three.js是基于原生WebGL封装运行的三维引擎，市面上使用最广�
 ```
 4. 最终我们得到了一个旋转的三维图像。
 
-<img src="./images/2021-11-2.gif">
+<img src="./images/2021-11-02.gif">
 <br/>
 ## 最后我们可以通过<a href="http://www.webgl3d.cn/Three.js">Three.js官网教程</a>进行学习。
 <br />
