@@ -61,4 +61,7 @@ db.Model(&TableData{}).Where("id = ?", 2).Updates(&TableData{
 ```go
 // 删除，当数据库有deleted_at字段是为软删除(引入gorm.Model自带)
 db.Model(&TableData{}).Where("id = ?", 3).Delete(&TableData{})
+
+// 有deleted_at字段的直接删除，需要添加Unscoped
+db.Model(&TableData{}).Where("id = ?", 3).Unscoped().Delete(&TableData{})
 ```
