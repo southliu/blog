@@ -52,3 +52,17 @@ func main() {
 var floatVal float64 = 0.5
 floatVal := 0.5
 ```
+
+### 枚举
+通常使用const参量来定义，使用iota自增。
+```
+const (
+  cpp = iota,
+  golang,
+  java
+)
+fmt.Println(cpp, golang, java) // 0, 1, 2
+```
+
+### byte,rune
+### 数字complex64,数字complex128
