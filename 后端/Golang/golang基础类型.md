@@ -64,5 +64,11 @@ const (
 fmt.Println(cpp, golang, java) // 0, 1, 2
 ```
 
-### byte,rune
-### 数字complex64,数字complex128
+### byte和rune
+byte是uint8的别名类型，用于区分字节值和8位无符号整数值。
+rune则是int32的别名类型，用于区分字符值和整数值。
+
+### 复数类型
+复数类型有`complex64`和`complex128`两种类型。
+`complex64`为8个字节，由两个`float32`类型的值分别表示复数的实数部分和虚数部分。
+`complex128`为8个字节，由两个`float64`类型的值分别表示复数的实数部分和虚数部分。
