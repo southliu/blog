@@ -32,7 +32,7 @@
 输出: 2147483647
 ```
 ### 解题思路：尾循环，最后一位是26的0次方+当前数，倒数第二位是26的1次方+当前数，依次累加...
-```
+```ts
 function titleToNumber(columnTitle: string): number {
   let ans = 0
   let multiple = 1
