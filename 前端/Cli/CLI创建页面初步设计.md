@@ -19,7 +19,7 @@ south creat-vue-page page-name
 ```
 # 实现CLI提示功能
 ### 在<kbd>lib/GeneratorPage</kbd>中添加询问功能方法
-```
+```TS
 async handleFunctions() {
   // 询问基础功能
   const { functions }: { functions: IPageFunctions[] } = await inquirer.prompt({
