@@ -11,7 +11,7 @@ Vue 的学习曲线较低、库大小更小，在响应式编程和组件化方�
 
 3. diff算法
 * Vue2采用双端比较，Vue3采用快速比较
-* react主要使用diff队列保存需要更新哪些DOM，得到patch树，再统一操作批量更新DOM。，需要使用`shouldComponentUpdate()`来手动优化react的渲染。
+* react主要使用diff队列保存需要更新哪些DOM，得到patch树，再统一操作批量更新DOM。需要使用`shouldComponentUpdate()`来手动优化react的渲染。
 
 # SFC是什么
 SFC（Single File Component）是Vue.js中的一种模板文件，它将HTML，CSS，JavaScript和其他语言组合在一个文件中，可以帮助开发人员简化前端开发工作，并更好地控制代码的可维护性和可读性。
