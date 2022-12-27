@@ -234,3 +234,6 @@ Vue.component("cat", {
 window.onerror = function(message, source, line, column, error) {};
 ```
 它是一个全局的异常处理函数，可以抓取所有的 JavaScript 异常
+
+# vuex有哪些API？
+Vuex API 包括：store，actions，getters，mutations，modules，state，commit，dispatch，watch，mapState，mapGetters，mapActions，mapMutations 和createNamespacedHelpers等。

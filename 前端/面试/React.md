@@ -1,6 +1,10 @@
 # React Hooks使用限制？
 React Hooks的使用限制包括：不允许在条件语句中使用Hooks；必须在React函数组件中使用Hooks；Hooks不能出现在循环、嵌套函数或者子函数中；Hooks必须在React函数的最外面，并且必须按照顺序调用。
 
+# useState是同步还是异步？
+React17或17以前是同步。
+React18是异步。
+
 # useEffect和useLayouEffect区别？
 useEffect和useLayoutEffect的区别在于，useEffect会在所有的DOM变更之后才执行，而useLayoutEffect会在浏览器绘制之前就执行，这意味着它会在渲染之前捕获最新的DOM值。因此，useLayoutEffect适用于需要在渲染之前更新DOM值的场景，而useEffect适用于需要在渲染之后执行操作的场景。
 
