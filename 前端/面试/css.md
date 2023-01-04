@@ -88,6 +88,31 @@ flex: 1 === flex: 0 1 auto
 }
 ```
 
+# 画一个叉
+```css
+.close {
+    position: relative;
+}
+
+.close::before,
+.close::after {
+    position: absolute;
+    content: ' ';
+    background-color: #eee;
+    left: 20px;
+    width: 1px;
+    height: 20px;
+}
+
+.close::before {
+    transform: rotate(45deg);
+}
+
+.close::after {
+    transform: rotate(-45deg);
+}
+```
+
 # link和@import的区别
 * link功能较多，可以定义Rel等作用，而@import只能用于加载css
 * 当解析到link时，页面会同步加载所引的css，而@import所引用的css会等页面加载完成才被加载
