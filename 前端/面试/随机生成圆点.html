@@ -33,7 +33,7 @@
           const xDouble = Math.abs(pX - x)
           const yDouble = Math.abs(pY - y)
           const sum = Math.pow(xDouble, 2) + Math.pow(yDouble, 2)
-          const distance = Math.floor(Math.sqrt(sum))
+          const distance = Math.sqrt(sum)
 
           // 圆心距离小于半径表示重叠
           if (distance < (radius + pRadius)) return true
@@ -52,8 +52,8 @@
           while (limit > 0) {
             const x = getRandom(0, 1200)
             const y = getRandom(0, 700)
-            const size = getRandom(10, 50)
-            const radius = Math.ceil(size / 1)
+            const size = getRandom(1, 50)
+            const radius = size / 2
 
             if (!hasCross(y, x, radius)) {
               // 创建元素
@@ -61,8 +61,8 @@
               circle.style.position = 'absolute'
               circle.style.width = size + 'px'
               circle.style.height = size + 'px'
-              circle.style.left = x + 'px'
-              circle.style.top = y + 'px'
+              circle.style.left = x - radius + 'px'
+              circle.style.top = y - radius + 'px'
               circle.style.borderRadius = '50%'
               circle.style.backgroundColor = color
               document.body.appendChild(circle)
