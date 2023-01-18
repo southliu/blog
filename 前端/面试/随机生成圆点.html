@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>随机生成圆形</title>
+  </head>
+  <body>
+    <script>
+      // 位置数组
+      const positionArr = []
+
+      // 获取随机数
+      function getRandom(min = 10, max = 1000) {
+        const result = Math.floor(Math.random() * (max - min + 1)) + min
+        return result
+      }
+
+      // 获取颜色
+      function getColor() {
+        let r = getRandom(0, 255)
+        let g = getRandom(0, 255)
+        let b = getRandom(0, 255)
+
+        return `rgb(${r}, ${g}, ${b})`
+      }
+
+      // 判断是否重叠
+      function hasCross(x, y, radius) {
+        for (let i = 0; i < positionArr.length; i++) {
+          const [pX, pY, pRadius] = positionArr[i]
+          // 求圆心距离
+          const xDouble = Math.abs(pX - x)
+          const yDouble = Math.abs(pY - y)
+          const sum = Math.pow(xDouble, 2) + Math.pow(yDouble, 2)
+          const distance = Math.floor(Math.sqrt(sum))
+
+          // 圆心距离小于半径表示重叠
+          if (distance < (radius + pRadius)) return true
+        }
+
+        positionArr.push([x, y, radius])
+        return false
+      }
+
+      // 生成圆
+      function createCircle() {
+        for (let i = 0; i < 5000; i++) {
+          const color = getColor()
+          let limit = 100 // 限制循环次数
+
+          while (limit > 0) {
+            const x = getRandom(0, 1200)
+            const y = getRandom(0, 700)
+            const size = getRandom(10, 50)
+            const radius = Math.ceil(size / 1)
+
+            if (!hasCross(y, x, radius)) {
+              // 创建元素
+              const circle = document.createElement('div')
+              circle.style.position = 'absolute'
+              circle.style.width = size + 'px'
+              circle.style.height = size + 'px'
+              circle.style.left = x + 'px'
+              circle.style.top = y + 'px'
+              circle.style.borderRadius = '50%'
+              circle.style.backgroundColor = color
+              document.body.appendChild(circle)
+              break
+            }
+            limit--
+          }
+        }
+      }
+
+      createCircle()
+    </script>
+  </body>
+</html>
