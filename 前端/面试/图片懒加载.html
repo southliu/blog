@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+    <style>
+      html,
+      body {
+          width: 100%;
+          height: 100%;
+      }
+      .img {
+        min-width: 200px;
+        min-height: 300px;
+        border: 0;
+        background: url(https://pic4.zhimg.com/v2-56c4c670e8284acdec67e0d3091d299b_b.webp) center no-repeat;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      const imgs = [
+        'https://ts1.cn.mm.bing.net/th?id=OIP-C.7KW5GT7NQ8yUGlBbCHEm0gHaNK&w=187&h=333&c=8&rs=0&qlt=90&o=6&pid=3.1&rm=2',
+        'https://ts1.cn.mm.bing.net/th?id=OIP-C.wc_dCG_KbIKZwMdtD3gL2QHaEt&w=313&h=199&c=8&rs=0&qlt=90&o=6&pid=3.1&rm=2',
+        'https://ts4.cn.mm.bing.net/th?id=OIP-C.2IRCeI7lpFjVDkDwqMseBQHaEo&w=316&h=197&c=8&rs=0&qlt=90&o=6&pid=3.1&rm=2',
+        'https://ts1.cn.mm.bing.net/th?id=OIP-C.kJE5c2uL7he1BwdQb3-APAHaNK&w=187&h=333&c=8&rs=0&qlt=90&o=6&pid=3.1&rm=2',
+        'https://ts4.cn.mm.bing.net/th?id=OIP-C.xq6cOv82ubIhJY9qkFd5AgHaEK&w=333&h=187&c=8&rs=0&qlt=90&o=6&pid=3.1&rm=2',
+        'https://ts3.cn.mm.bing.net/th?id=OIP-C.ZkoPhpKfJwsvGmpm8RsragHaFp&w=286&h=218&c=8&rs=0&qlt=90&o=6&pid=3.1&rm=2',
+        'https://ts3.cn.mm.bing.net/th?id=OIP-C.jSjEpsSIymcWqEREuvkc_QHaEK&w=333&h=187&c=8&rs=0&qlt=90&o=6&pid=3.1&rm=2',
+        'https://ts3.cn.mm.bing.net/th?id=OIP-C.a_2XJOKnYxsnGU-tYazCWwHaF7&w=279&h=223&c=8&rs=0&qlt=90&o=6&pid=3.1&rm=2',
+        'https://tse3-mm.cn.bing.net/th/id/OIP-C.Q5v9A7pG3XIaTHTrRCUbSQHaEo?w=281&h=180&c=7&r=0&o=5&pid=1.7',
+        'https://tse3-mm.cn.bing.net/th/id/OIP-C.GCl48vx9hsUwQJ-E23Ap9gHaEo?w=294&h=183&c=7&r=0&o=5&pid=1.7',
+        'https://tse3-mm.cn.bing.net/th/id/OIP-C.2XSfUSGs651p0jwFLs2E7AHaE6?w=254&h=180&c=7&r=0&o=5&pid=1.7',
+        'https://tse1-mm.cn.bing.net/th/id/OIP-C.82_Luxol0IwKNFXLBOLVgAHaE3?w=308&h=202&c=7&r=0&o=5&pid=1.7',
+        'https://tse2-mm.cn.bing.net/th/id/OIP-C.i8vPtWG2EF_YDNBNbQ4lcgHaE8?w=248&h=180&c=7&r=0&o=5&pid=1.7',
+        'https://tse4-mm.cn.bing.net/th/id/OIP-C.eQE1rD79mnbj1GmDdi5o8QHaLH?w=130&h=195&c=7&r=0&o=5&pid=1.7',
+        'https://tse1-mm.cn.bing.net/th/id/OIP-C.hVDKawFJ4cX-y4QNGLGy0AHaES?w=319&h=184&c=7&r=0&o=5&pid=1.7',
+        'https://tse4-mm.cn.bing.net/th/id/OIP-C.qodXUJE3nZXF9aLSk1z2YAHaEo?w=261&h=180&c=7&r=0&o=5&pid=1.7',
+        'https://tse4-mm.cn.bing.net/th/id/OIP-C.YsfDAKOeXfBAE0MOrk7lfgHaE8?w=244&h=180&c=7&r=0&o=5&pid=1.7',
+        'https://tse4-mm.cn.bing.net/th/id/OIP-C.xCrHIpp1mSlQP5EkcZYTvgHaEo?w=261&h=180&c=7&r=0&o=5&pid=1.7',
+        'https://tse3-mm.cn.bing.net/th/id/OIP-C.UhO11XbkKXSKID7C7nB-3wHaE9?w=243&h=180&c=7&r=0&o=5&pid=1.7',
+        'https://tse1-mm.cn.bing.net/th/id/OIP-C.V5OVajPQkl-S0c0KoV-naAHaEo?w=261&h=180&c=7&r=0&o=5&pid=1.7',
+        'https://tse2-mm.cn.bing.net/th/id/OIP-C.-rN7YBRE2acdSrObs9zBIQHaEK?w=296&h=180&c=7&r=0&o=5&pid=1.7',
+        'https://tse2-mm.cn.bing.net/th/id/OIP-C.6Dn4Yj1e0SgDN3C-RslYUwHaEK?w=294&h=180&c=7&r=0&o=5&pid=1.7',
+        'https://tse1-mm.cn.bing.net/th/id/OIP-C.n0wuYl8DIOcz8tKCUm2TXQHaEK?w=294&h=180&c=7&r=0&o=5&pid=1.7',
+        'https://tse2-mm.cn.bing.net/th/id/OIP-C.CTSHlr20lMe042Hh8mBfVgHaEK?w=294&h=180&c=7&r=0&o=5&pid=1.7',
+        'https://tse3-mm.cn.bing.net/th/id/OIP-C.XTW2DLIcGedgFtezatpx2QHaEK?w=304&h=180&c=7&r=0&o=5&pid=1.7',
+        'https://tse2-mm.cn.bing.net/th/id/OIP-C.A-jMygVdWQfkCMIQM2R7EwHaEK?w=290&h=180&c=7&r=0&o=5&pid=1.7',
+      ]
+
+      // 渲染图片
+      for (let i = 0; i < imgs.length; i++) {
+        const img = document.createElement('img')
+        img.className = 'img'
+        img.setAttribute('data-src', imgs[i])
+        document.body.appendChild(img)
+      }
+
+      // 获取可视区域高度和宽度
+      const viewWidth = document.documentElement.clientWidth
+      const viewHeight = document.documentElement.clientHeight
+
+      // 懒加载图片
+      function lazyLoad() {
+        const imgs = document.querySelectorAll('img[data-src]')
+        if (!imgs.length) return
+
+        imgs.forEach(item => {
+          if (!item.dataset.src) return
+
+          // 获取页面中某个元素对应的左、上、右和下相对的浏览器位置
+          const rect = item.getBoundingClientRect()
+          const { top, bottom, right } = rect
+
+          if (top < viewHeight && bottom >= 0 && right < viewWidth) {
+            item.src = item.dataset.src
+            item.removeAttribute('data-src')
+          }
+        })
+      }
+      lazyLoad()
+
+      // 节流
+      function throttle(fn, time = 500) {
+        let timer = null
+
+        return () => {
+          if (timer) return
+          timer = setTimeout(() => {
+            fn()
+            clearTimeout(timer)
+            timer = null
+          }, time)
+        }
+      }
+
+      // 添加滚动时间
+      document.addEventListener('scroll', throttle(lazyLoad))
+    </script>
+  </body>
+</html>
