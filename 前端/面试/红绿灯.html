@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+    <style>
+      #lamp {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="lamp"></div>
+
+    <script>
+      const arr = ['red', 'yellow', 'green']
+      const lampElm = document.getElementById('lamp')
+      let slow = 1, fast = 0, timer = null
+      lampElm.style.background = 'red'
+
+      setInterval(() => {
+        fast += 5
+
+        // 绿灯
+        if (slow === 2 && fast === 15 && !timer) {
+          let greenIndex = 0
+          timer = setInterval(() => {
+            const background = greenIndex % 2 === 0 ? 'transparent' : arr[slow]
+            lampElm.style.background = background
+            greenIndex++
+          }, 500)
+        }
+
+        if (fast % 20 == 0) {
+          fast = 0
+          slow++
+
+          // 重置
+          if (slow === 3) {
+            clearInterval(timer)
+            timer = null
+            slow = 0
+          }
+
+          lampElm.style.background = arr[slow]
+        }
+      }, 5000)
+    </script>
+  </body>
+</html>
