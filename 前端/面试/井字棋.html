@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+    <style>
+        #box {
+            display: grid;
+            grid-template-columns: repeat(3, 50px);
+            grid-template-rows: repeat(3, 50px);
+        }
+        .item {
+            border: 1px solid #000
+        }
+    </style>
+  </head>
+  <body>
+    <div>
+        <span>胜利：</span>
+        <span id="winner"></span>
+    </div>
+    <div id="box"></div>
+
+    <script>
+        const boxElm = document.getElementById('box')
+        let cache = new Array(9).fill(null) // 点击过下标缓存
+        let state = 'o', step = 0, isWinner = false
+
+        // 生成井字
+        for (let i = 0; i < 9; i++) {
+            const childrenElm = document.createElement('div')
+            childrenElm.id = `child${i}`
+            childrenElm.className = 'item'
+            childrenElm.onclick = () => handleClick(i)
+            boxElm.appendChild(childrenElm)
+        }
+
+        // 点击处理
+        function handleClick(index) {
+            if (isWinner) return
+
+            if (cache[index] === null) {
+                step++
+                const elm = document.getElementById(`child${index}`)
+                elm.innerHTML = state
+                cache[index] = state
+                hasVictory()
+                state = state === 'x' ? 'o' : 'x'
+            }
+        }
+        
+        // 判断是否胜利
+        function hasVictory() {
+            if (step < 6) return
+            
+            // 胜利条件
+            const arr = [
+                [0, 1, 2],
+                [3, 4, 5],
+                [6, 7, 8],
+                [0, 3, 6],
+                [1, 4, 7],
+                [2, 5, 8],
+                [0, 4, 8],
+                [2, 4, 6]
+            ]
+            for (let i = 0; i < arr.length; i++) {
+                const [a, b, c] = arr[i]
+                if (cache[a] === cache[b] && cache[a] === cache[c] && cache[b] === cache[c]) {
+                    isWinner = true
+                    const winnerElm = document.getElementById('winner')
+                    return winnerElm.innerHTML = state
+                }
+            }
+        }
+    </script>
+  </body>
+</html>
