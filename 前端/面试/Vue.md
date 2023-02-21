@@ -237,3 +237,12 @@ window.onerror = function(message, source, line, column, error) {};
 
 # vuex有哪些API？
 Vuex API 包括：store，actions，getters，mutations，modules，state，commit，dispatch，watch，mapState，mapGetters，mapActions，mapMutations 和createNamespacedHelpers等。
+
+# Vue视图更新机制？
+Vue的视图更新机制是基于数据驱动的，它会监听数据的变化，当数据发生变化时，Vue会自动更新视图。Vue使用虚拟DOM来提高更新视图的性能，它会把当前的DOM状态和更新后的DOM状态进行比较，只更新发生变化的部分，从而提高更新视图的性能。
+
+# Vue视图更新是同步还是异步的？
+Vue视图更新是同步的。
+
+# Vue数据拦截？
+Vue提供了一个拦截器，它可以拦截在组件实例上定义的属性，以便在访问或设置它们时进行自定义处理。拦截器可以用于处理各种用例，例如：格式化数据，记录访问，设置默认值等。
