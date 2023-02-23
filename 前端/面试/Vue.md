@@ -1,17 +1,29 @@
-# vue和react的区别
-Vue 的学习曲线较低、库大小更小，在响应式编程和组件化方面让用户更易上手；而 React 使用 JSX 语法来渲染 UI，具有良好的性能，不过它的学习曲线比 Vue 高，也需要更多的资源加载。
+# vue2和vue3有什么改变？
+1. 生命周期钩子不同，create钩子被setup取代。
+2. Vue2响应式原理是Object.defineProperty，Vue3响应式原理是Proxy。
+3. Vue3支持多根节点，Vue2最外层必要一个div包裹着。
+4. Vue3提供Teleport组件可以将部分DOM移动到Vue app之外的位置。比如常见的Dialog弹窗。
+5. Vue3 API都需要手动导入，方便tree-shaking优化。
 
-1. 数据可变性
-* React 推崇函数式编程，数据不可变以及单向数据流，只能通过setState或者onchange来实现视图更新
-* Vue 基于数据可变，设计了响应式数据，通过监听数据的变化自动更新视图
+# vue2和vue3生命周期函数
+vue2:
+* beforeCreate
+* create
+* beforeMount
+* mount
+* beforeUpdate
+* update
+* beforeDestroy
+* destroy
 
-2. 写法
-* React 推荐使用 jsx + inline style的形式，就是 all in js
-* Vue 是单文件组件（SFC）形式，在一个组件内分模块(tmplate/script/style)，当然vue也支持jsx形式，可以在开发vue的ui组件库时使用
-
-3. diff算法
-* Vue2采用双端比较，Vue3采用快速比较
-* react主要使用diff队列保存需要更新哪些DOM，得到patch树，再统一操作批量更新DOM。需要使用`shouldComponentUpdate()`来手动优化react的渲染。
+vue3:
+* setup 创建实例前
+* onBeforeMount 挂载DOM前
+* onMounted 挂载DOM后
+* onBeforeUpdate 更新组件前
+* onUpdate 更新组件后
+* onBeforeUnmount 卸载销毁前
+* onUnmount 卸载销毁后
 
 # SFC是什么
 SFC（Single File Component）是Vue.js中的一种模板文件，它将HTML，CSS，JavaScript和其他语言组合在一个文件中，可以帮助开发人员简化前端开发工作，并更好地控制代码的可维护性和可读性。
