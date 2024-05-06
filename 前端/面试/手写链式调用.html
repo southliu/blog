@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>手写链式调用</title>
+</head>
+<body>
+  <pre>
+    /**
+    * --- 问题描述 ---
+    *
+    * 实现一个 arrange 函数，可以进行时间和工作调度
+    *
+    * --- 说明 ---
+    *
+    * - 本题需要自己实现测试用例
+    * - 具体功能参考下列示例
+    * - 在示例中调用到的方法都需要实现
+    * - 下面示例中 `>` 表示在控制台中输出 (console.log)
+    *
+    * --- 示例 ---
+    *
+    * 示例一:
+    * `arrange('William').execute();`
+    * > William is notified
+    *
+    * 示例二:
+    * `arrange('William').wait(5).do('commit').execute();`
+    * > William is notified
+    * 等待 5s...
+    * > Start to commit
+    *
+    * 示例三:
+    * `arrange('William').waitFirst(3).do('push').execute();`
+    * 等待 3s...
+    * > William is notified
+    * > Start to push
+    *
+    */
+  </pre>
+
+  <script>
+    function arrange(name) {
+      const state = {
+        name,
+        actions: [],
+        waitFirstTime: 0
+      }
+
+      return {
+        execute() {
+          if (state.waitFirstTime > 0) {
+            setTimeout(() => {
+              console.log(`(等待${state.waitFirstTime}秒)`)
+              this.executeAfterWait()
+            }, state.waitFirstTime * 1000);
+          } else {
+            this.executeAfterWait()
+          }
+          return this
+        },
+        executeAfterWait() {
+          console.log(`${state.name} is notified`);
+          state.actions.forEach(item => {
+            if (item.type === 'wait') {
+              setTimeout(() => {
+                console.log(`(等待${item.time}秒)`)
+                item.fn()
+              }, item.time * 1000);
+            } else {
+              item.fn()
+            }
+          })
+        },
+        wait(time) {
+          state.actions.push({
+            type: 'wait',
+            time,
+            fn: () => console.log(`Waited for ${time} seconds`)
+          })
+          return this
+        },
+        do(task) {
+          state.actions.push({
+            type: 'task',
+            fn: () => console.log(`Start to ${task}`)
+          })
+          return this
+        },
+        waitFirst(time) {
+          state.waitFirstTime = time;
+          return this
+        },
+      }
+    }
+
+    arrange("wi1liam").wait(5).do("commit").waitFirst(3).execute();
+    debugger
+  </script>
+</body>
+</html>
