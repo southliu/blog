@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>解析URL参数</title>
+</head>
+<body>
+  <pre>
+    /**
+     * 问题:实现 queryParse 函数，完成解析 URL 参数的功能
+     * 用法:
+     * const href = 'https://a.b.c?name=abc&age=24&code=test;
+     * const params= queryParse(href);
+     * console.log(params); // { name:'abc',age:24,...等 }
+     */
+    function queryParse(url) {
+      //TODO 这里写代码实现
+    }
+  </pre>
+
+  <script>
+    function queryParse(url) {
+      if (!url) return {}
+
+      const firstIndex = url.indexOf('?')
+      const paramStr = url.substring(firstIndex + 1, url.length)
+      const paramStrArr = paramStr.split('&')
+      const result = {}
+
+      for (let i = 0; i < paramStrArr?.length; i++) {
+        const item = paramStrArr[i];
+        const firstIndex = item.indexOf('=')
+        const key = item.substring(0, firstIndex)
+        let value = item.substring(firstIndex + 1, item.length)
+
+        // 是否是数字
+        if (!isNaN(value)) {
+          value = Number(value)
+        }
+
+        result[key] = value
+      }
+
+      return result
+    }
+    
+    const href = 'https://a.b.c?name=abc&age=24&code=test';
+    const params= queryParse(href);
+    console.log(params); // { name:'abc',age:24,...等 }
+  </script>
+</body>
+</html>
