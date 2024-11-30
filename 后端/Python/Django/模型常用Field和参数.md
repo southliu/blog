@@ -23,11 +23,12 @@
 * UUIDField: 字符串类型，用于存储UUID
 
 ### 常用参数
-* null: 如果为True，Django将数据库中的该字段存储为NULL
-* blank: 如果为True，该字段允许为空
+* null: 如果为True，Django将数据库中的该字段存储为NULL，默认为False
+* blank: 如果为True，该字段允许为空，表单验证级别
 * default: 字段的默认值
 * primary_key: 如果为True，该字段为主键
 * db_column: 指定数据库中的列名
+* unique: 如果为True，该字段的值必须唯一
 
 ```python
 class Book(models.Model):
