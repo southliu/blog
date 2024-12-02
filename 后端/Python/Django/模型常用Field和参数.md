@@ -35,3 +35,17 @@ class Book(models.Model):
     title = models.CharField(max_length=100)
     publication_date = models.DateField(auto_now_add=True)
 ```
+
+## Meta配置
+* db_table: 指定数据库中的表名
+* ordering: 指定默认的排序方式
+
+```python
+class Book(models.Model):
+    title = models.CharField(max_length=100)
+    publication_date = models.DateField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'books'
+        ordering = ['-publication_date', 'title']
+```
