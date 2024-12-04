@@ -1,0 +1,35 @@
+# 数据库外键
+### ForeignKey方法
+官网地址：https://docs.djangoproject.com/zh-hans/5.1/ref/models/fields/#django.db.models.ForeignKey <br/>
+作用：外键约束，用于建立一对多的关系，通常用于一对多关系中的多的一方<br/>
+
+```python
+# article/models.py
+class User(models.Model):
+    username = models.CharField(max_length=100)
+    password = models.CharField(max_length=100)
+
+
+class Article(models.Model):
+    title = models.CharField(max_length=100)
+    content = models.TextField()
+
+    # 命名user会自动生成一个user_id foreign key
+    user = models.ForeignKey("User", on_delete=models.CASCADE)
+```
+```python
+# article/views.py
+from django.shortcuts import HttpResponse
+from article.models import User, Article
+
+def index(request):
+    article = Article.objects.first()
+    return HttpResponse(f'文章第一个用户：{article.user.username}')
+
+def add_article(request):
+    user = User(username='admin', password='123456')
+    article = Article(title='title', content='content', user=user)
+    user.save()
+    article.save()
+    return HttpResponse('新增文字成功')
+```
