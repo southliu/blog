@@ -26,6 +26,14 @@ def index(request):
     article = Article.objects.first()
     return HttpResponse(f'文章第一个用户：{article.user.username}')
 
+def first_article_all(request):
+    user = User.objects.first()
+    articles = user.article_set.all()
+    article_list = list()
+    for article in articles:
+        article_list.append(article.title)
+    return HttpResponse(f'用户{user.username}的文章：{','.join(article_list)}')
+
 def add_article(request):
     user = User(username='admin', password='123456')
     article = Article(title='title', content='content', user=user)
@@ -33,3 +41,20 @@ def add_article(request):
     article.save()
     return HttpResponse('新增文字成功')
 ```
+
+### 树形结构
+ForeignKey绑定自身self即可。
+```python
+class Comment(models.Model):
+    content = models.TextField()
+    origin_comment = models.ForeignKey("self", on_delete=models.CASCADE, null=True)
+```
+
+### 外键删除操作
+on_delete参数：
+- CASCADE：级联删除，删除主表中的数据时，从表中的数据也相应删除
+- PROTECT：保护模式，删除主表中的数据时，如果从表中有数据引用该主表中的数据，则删除操作不执行，抛出ProtectedError异常
+- SET_NULL：置空模式，删除主表中的数据时，从表中的数据的外键字段置为null，前提是外键字段允许为null
+- SET_DEFAULT：置默认值模式，删除主表中的数据时，从表中的数据的外键字段置为默认值，前提是指定默认值
+- SET()：自定义模式，删除主表中的数据时，从表中的数据的外键字段根据SET()函数的返回值进行操作
+- DO_NOTHING：不作为，删除主表中的数据时，不做任何操作，需要自行处理外键字段引用的数据
