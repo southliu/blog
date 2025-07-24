@@ -43,6 +43,21 @@
       return tips.every(tip => distance(tip, palm) < 0.12);
     }
 
+    // 判定手是否是手部晃动
+    function isShake() {
+      if (shakeHistory.length < 8) return false;
+      // 计算历史x的最大最小差
+      const xs = shakeHistory.map(xy=>xy.x);
+      const maxX = Math.max(...xs);
+      const minX = Math.min(...xs);
+      // 左右晃动应有足够幅度，并且至少两次来回（检测正负变化）
+      let changes = 0;
+      for (let i = 2; i < xs.length; i++) {
+        if ((xs[i]-xs[i-1]) * (xs[i-1]-xs[i-2]) < -0.0005) changes++;
+      }
+      return (maxX - minX > 0.08) && (changes >=2);
+    }
+
     // 判定手张开且五指并拢为“劈砍”
     function isChopHand(landmarks) {
       // 指尖在一条线上（大致y值接近），指尖间x/y距离较小，食指(8)、中指(12)、无名(16)、小指(20)
@@ -93,6 +108,9 @@
         const vy = detectDirection(landmarks, 'y');
         if (vy > 0.015) return "chop";
       }
+
+      if (isShake()) return "shake";
+
       // 可扩展更多自定义判据
       return "none";
     }
