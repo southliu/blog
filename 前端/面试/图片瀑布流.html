@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>图片瀑布流</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+    }
+    #container {
+      max-width: 1400px;
+      column-gap: 10px;
+      column-count: 5;
+    }
+    .img {
+      width: 100%;
+      border: 0;
+    }
+    .img + .img {
+      margin-top: 10px;
+    }
+    @media (max-width: 1200px) {
+      #container {
+        column-count: 4;
+      }
+    }
+    @media (max-width: 850px) {
+      #container {
+        column-count: 3;
+      }
+    }
+    @media (max-width: 600px) {
+      #container {
+        column-count: 2;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="container"></div>
+
+  <script>
+    const imgs = [
+      'https://ts1.cn.mm.bing.net/th?id=OIP-C.7KW5GT7NQ8yUGlBbCHEm0gHaNK&w=187&h=333&c=8&rs=0&qlt=90&o=6&pid=3.1&rm=2',
+      'https://ts1.cn.mm.bing.net/th?id=OIP-C.wc_dCG_KbIKZwMdtD3gL2QHaEt&w=313&h=199&c=8&rs=0&qlt=90&o=6&pid=3.1&rm=2',
+      'https://ts4.cn.mm.bing.net/th?id=OIP-C.2IRCeI7lpFjVDkDwqMseBQHaEo&w=316&h=197&c=8&rs=0&qlt=90&o=6&pid=3.1&rm=2',
+      'https://ts1.cn.mm.bing.net/th?id=OIP-C.kJE5c2uL7he1BwdQb3-APAHaNK&w=187&h=333&c=8&rs=0&qlt=90&o=6&pid=3.1&rm=2',
+      'https://ts4.cn.mm.bing.net/th?id=OIP-C.xq6cOv82ubIhJY9qkFd5AgHaEK&w=333&h=187&c=8&rs=0&qlt=90&o=6&pid=3.1&rm=2',
+      'https://ts3.cn.mm.bing.net/th?id=OIP-C.ZkoPhpKfJwsvGmpm8RsragHaFp&w=286&h=218&c=8&rs=0&qlt=90&o=6&pid=3.1&rm=2',
+      'https://ts3.cn.mm.bing.net/th?id=OIP-C.jSjEpsSIymcWqEREuvkc_QHaEK&w=333&h=187&c=8&rs=0&qlt=90&o=6&pid=3.1&rm=2',
+      'https://ts3.cn.mm.bing.net/th?id=OIP-C.a_2XJOKnYxsnGU-tYazCWwHaF7&w=279&h=223&c=8&rs=0&qlt=90&o=6&pid=3.1&rm=2',
+      'https://tse3-mm.cn.bing.net/th/id/OIP-C.Q5v9A7pG3XIaTHTrRCUbSQHaEo?w=281&h=180&c=7&r=0&o=5&pid=1.7',
+      'https://tse3-mm.cn.bing.net/th/id/OIP-C.GCl48vx9hsUwQJ-E23Ap9gHaEo?w=294&h=183&c=7&r=0&o=5&pid=1.7',
+      'https://tse3-mm.cn.bing.net/th/id/OIP-C.2XSfUSGs651p0jwFLs2E7AHaE6?w=254&h=180&c=7&r=0&o=5&pid=1.7',
+      'https://tse1-mm.cn.bing.net/th/id/OIP-C.82_Luxol0IwKNFXLBOLVgAHaE3?w=308&h=202&c=7&r=0&o=5&pid=1.7',
+      'https://tse2-mm.cn.bing.net/th/id/OIP-C.i8vPtWG2EF_YDNBNbQ4lcgHaE8?w=248&h=180&c=7&r=0&o=5&pid=1.7',
+      'https://tse4-mm.cn.bing.net/th/id/OIP-C.eQE1rD79mnbj1GmDdi5o8QHaLH?w=130&h=195&c=7&r=0&o=5&pid=1.7',
+      'https://tse1-mm.cn.bing.net/th/id/OIP-C.hVDKawFJ4cX-y4QNGLGy0AHaES?w=319&h=184&c=7&r=0&o=5&pid=1.7',
+      'https://tse4-mm.cn.bing.net/th/id/OIP-C.qodXUJE3nZXF9aLSk1z2YAHaEo?w=261&h=180&c=7&r=0&o=5&pid=1.7',
+      'https://tse4-mm.cn.bing.net/th/id/OIP-C.YsfDAKOeXfBAE0MOrk7lfgHaE8?w=244&h=180&c=7&r=0&o=5&pid=1.7',
+      'https://tse4-mm.cn.bing.net/th/id/OIP-C.xCrHIpp1mSlQP5EkcZYTvgHaEo?w=261&h=180&c=7&r=0&o=5&pid=1.7',
+      'https://tse3-mm.cn.bing.net/th/id/OIP-C.UhO11XbkKXSKID7C7nB-3wHaE9?w=243&h=180&c=7&r=0&o=5&pid=1.7',
+      'https://tse1-mm.cn.bing.net/th/id/OIP-C.V5OVajPQkl-S0c0KoV-naAHaEo?w=261&h=180&c=7&r=0&o=5&pid=1.7',
+      'https://tse2-mm.cn.bing.net/th/id/OIP-C.-rN7YBRE2acdSrObs9zBIQHaEK?w=296&h=180&c=7&r=0&o=5&pid=1.7',
+      'https://tse2-mm.cn.bing.net/th/id/OIP-C.6Dn4Yj1e0SgDN3C-RslYUwHaEK?w=294&h=180&c=7&r=0&o=5&pid=1.7',
+      'https://tse1-mm.cn.bing.net/th/id/OIP-C.n0wuYl8DIOcz8tKCUm2TXQHaEK?w=294&h=180&c=7&r=0&o=5&pid=1.7',
+      'https://tse2-mm.cn.bing.net/th/id/OIP-C.CTSHlr20lMe042Hh8mBfVgHaEK?w=294&h=180&c=7&r=0&o=5&pid=1.7',
+      'https://tse3-mm.cn.bing.net/th/id/OIP-C.XTW2DLIcGedgFtezatpx2QHaEK?w=304&h=180&c=7&r=0&o=5&pid=1.7',
+      'https://tse2-mm.cn.bing.net/th/id/OIP-C.A-jMygVdWQfkCMIQM2R7EwHaEK?w=290&h=180&c=7&r=0&o=5&pid=1.7',
+    ]
+
+    const containerEle = document.getElementById('container')
+    
+    // 渲染图片
+    for (let i = 0; i < imgs.length; i++) {
+      const img = document.createElement('img')
+      img.className = 'img'
+      img.src = imgs[i]
+      img.loading = 'lazy'
+      containerEle.appendChild(img)
+    }
+
+  </script>
+</body>
+</html>
